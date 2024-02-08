@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Signup-Style.css">
+    <title>Sign Up</title>
+    
+</head>
+<body>
+    <header>
+        <h1>NAME OF BLOG</h1>
+        <nav>
+            <ul>
+                <li><a href="Trending.html">Trending Blogs</a></li>
+                <li><a href="search-form.html">Search</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form id="signupForm" action="#" onsubmit="return validateForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span id = "usernameError" class="error-message"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span id = "emailError" class="error-message"></span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span id = "passwordError" class="error-message"></span>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id = "confirmPasswordError" class="error-message"></span>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="successMessage">Your account has been successfully validated! Page Will Redirect Within 20 Seconds.</div>
+    </main>
+    <script>
+        function validateForm(){
+            /*Validation for sign up Simple getters*/
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            /*Error thower*/
+            var usernameError = document.getElementById("usernameError");
+            var emailError = document.getElementById("emailError");
+            var passwordError = document.getElementById("passwordError");
+            var confirmPasswordError = document.getElementById("confirmPasswordError");
+
+            usernameError.innerHTML = "";
+            emailError.innerHTML = "";
+            passwordError.innerHTML = "";
+            confirmPasswordError.innerHTML = "";
+
+            var isValid = true;
+
+            /*Username Error Msg / checker*/
+            if(username.trim() === ""){
+                usernameError.innerHTML = "Username is required!";
+                isValid = false;
+            }
+            /*email Error Msg / checker*/
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(email)){
+                emailError.innerHTML = "Enter a valid email!";
+                isValid = false;
+            }
+            /*password Error Msg / checker*/
+            if(password.length < 8){
+                passwordError.innerHTML = "Password Must be at least 8 characters long!";
+                isValid = false;
+            }
+            /*ensure password and confim are the same*/
+            if(confirmPassword !== password){
+                confirmPasswordError.innerHTML = "passwords do not match!";
+                isValid = false;
+            }
+            /*user feedback for account validation*/
+            if(isValid){
+                //alert("Account Successfuly Validated");
+                showSuccessMessage();
+            }
+            return isValid;
+        }
+        /*this show validation function really only works on browser, VS code kinda hates it*/
+        /*it just flashes green in vscode*/
+        function showSuccessMessage() {
+            var successMessage = document.getElementById("successMessage");
+            //show message
+            successMessage.style.display = "block";
+            // fixed?
+            setTimeout(function() {
+                successMessage.style.display = "none";
+                window.location.href = "Home.html";
+            }, 50000);
+        }
+    </script>
+</body>
+</html>
