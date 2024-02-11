@@ -65,6 +65,8 @@ The login page with extra features to get the bare minimum details from the user
     - Admin will imporve user experiences based on user feedback
 
 ### Discussion regarding the design and styles of all pages
+Our team has decided to follow a simplistic and minimalist design for at least this phase of the project. This choice will allow us to direct more attention towards developing the functionality of the site and helps establish a foundation for future enhancements. Also, by opting for a minimalist approach, we aim to set an intuitive navigation and a streamlined user experience. Furthermore, aiming for simplicity will hopefully reduce the complexity associated with making modifications and additions in future iterations of development. 
+
 ### Develop the pages with client-side validation
 - This has been done!
 ### Develop styles for pages
