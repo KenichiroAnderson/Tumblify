@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Signup-Style.css">
     <title>Login</title>
 </head>
+
 <body>
     <header>
-        <h1>NAME OF BLOG</h1>
+        <h1>Ticket-Tech</h1>
         <nav>
+            <!-- always update these when you make a new header, do for all pages-->
             <ul>
-                <li><a href="Trending.html">Trending Blogs</a></li>
+                <li><a href="Concerts.html">Concerts</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li><a href="login.html">Log In</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
@@ -20,16 +23,54 @@
     </header>
 
     <main>
-        <!--replace # with where we want this to go, we can do this later-->
-        <form id="loginForm"action="#" >
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+        <div class="container">
+            <h2>Log In</h2>
+            <!--redirect when you want to register-->
+            <p>Don't have an account? <a href="signup.html">Register here</a>.</p>
+            <form id="loginForm" onsubmit="return validateForm(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
 
-            <button type="submit">Log In</button>
-        </form>
+                <p style="text-align: right;"><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
+                <button type="submit">Log In</button>
+            </form>
+
+        </div>
     </main>
+
+    <script>
+        // Validation and form submission logic for login
+        function validateForm(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (validateLogin(username, password)) {
+                console.log("Login Successful!");
+                // Add a log to check the values of username and password
+                console.log("Username:", username);
+                console.log("Password:", password);
+                // KEVIN redirect when logged in!
+                window.location.href = "userPage.html";
+            } else {
+                console.log("Login Failed!");
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+
+        // Function to validate login credentials
+        function validateLogin(username, password) {
+            var userData = JSON.parse(localStorage.getItem("userData")) || [];
+
+            return userData.some(function(user) {
+                return user.username === username && user.password === password;
+            });
+        }
+    </script>
+
 </body>
+
 </html>
