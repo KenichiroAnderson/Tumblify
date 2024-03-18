@@ -14,7 +14,7 @@
             <ul>
                 <li><a href="Trending.html">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
-                <li><a href="login.html">Log In</a></li>
+                <li><a href="login.php">Log In</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
@@ -22,10 +22,10 @@
     <main>
         <?php
         // Database connection
-        $servername = "localhost"; // assuming your database is on localhost
-        $username = "60531845"; // your database username
-        $password = "60531845"; // your database password
-        $dbname = "db_60531845"; // your database name
+        $servername = "localhost"; 
+        $username = "60531845"; 
+        $password = "60531845";
+        $dbname = "db_60531845";
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
