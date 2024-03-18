@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = "60531845";
         $dbname = "db_60531845";
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $Username, $Password, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
@@ -19,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Prepare SQL statement to retrieve user data
-    $sql = "SELECT * FROM Users WHERE Username='$username' AND Password='$password'";
+    $sql = "SELECT * FROM Users WHERE Username='$Username' AND Password='$Password'";
     $result = $conn->query($sql);
 
     // Check if user exists
     if ($result->num_rows > 0) {
         // User found, set session variables and redirect to user page
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = $Username;
         header("Location: userPage.html");
         exit();
     } else {
