@@ -2,60 +2,57 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if form fields are set and not empty
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmPassword']) &&
-        !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
-        $servername = "localhost"; 
-        $username = "60531845";
-        $password = "60531845"; 
-        $dbname = "db_60531845"; 
+    $servername = "localhost"; 
+    $username = "60531845";
+    $password = "60531845"; 
+    $dbname = "db_60531845"; 
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+    // Create connection
+    $conn = new mysqli($servername, $username_db, $password_db, $dbname);
 
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Retrieve form data and sanitize inputs
-        $username = mysqli_real_escape_string($conn, $_POST['username']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']);
-        $confirmPassword = mysqli_real_escape_string($conn, $_POST['confirmPassword']);
-
-        // Check if password matches confirm password
-        if ($password !== $confirmPassword) {
-            echo "Passwords do not match!";
-            exit;
-        }
-
-        // Hash the password for security
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Prepare SQL statement to insert user data using prepared statements
-        $sql = "INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-
-        // Bind parameters
-        $stmt->bind_param("sss", $username, $email, $hashedPassword);
-
-        // Execute the prepared statement
-        if ($stmt->execute()) {
-            echo "User registered successfully!";
-            // Redirect to login page
-            header("Location: login.php");
-            exit;
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        // Close statement and connection
-        $stmt->close();
-        $conn->close();
-    } else {
-        echo "All fields are required!";
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+
+    // Retrieve username from POST request
+    $username = $_POST['username'];
+
+    // Prepare SQL statement to retrieve hashed password from the database
+    $sql = "SELECT Password FROM Users WHERE Username=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if user exists
+    if ($result->num_rows > 0) {
+        // User found, retrieve hashed password from the result
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['Password'];
+
+        // Retrieve password from POST request
+        $password = $_POST['password'];
+
+        // Verify password using password_verify
+        if (password_verify($password, $hashedPassword)) {
+            // Password is correct, set session variables and redirect to user page
+            $_SESSION['username'] = $username;
+            header("Location: userPage.php");
+            exit();
+        } else {
+            // Password is incorrect, redirect back to login page with error message
+            header("Location: login.php?error=1");
+            exit();
+        }
+    } else {
+        // User not found, redirect back to login page with error message
+        header("Location: login.php?error=1");
+        exit();
+    }
+
+    $stmt->close();
+    $conn->close();
 }
 ?>
 
