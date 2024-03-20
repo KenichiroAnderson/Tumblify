@@ -3,11 +3,12 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
-        $username = "60531845"; 
-        $password = "60531845";
-        $dbname = "db_60531845";
+    $username = "60531845";
+    $password = "60531845";
+    $dbname = "db_60531845";
+    
     // Create connection
-    $conn = new mysqli($servername, $Username, $Password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
@@ -18,15 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Prepare SQL statement to retrieve user data
-    $sql = "SELECT * FROM Users WHERE Username='$Username' AND Password='$Password'";
-    $result = $conn->query($sql);
+    // Prepare SQL statement to retrieve user data using prepared statements
+    $sql = "SELECT * FROM Users WHERE Username=? AND Password=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     // Check if user exists
     if ($result->num_rows > 0) {
         // User found, set session variables and redirect to user page
-        $_SESSION['username'] = $Username;
-        header("Location: userPage.html");
+        $_SESSION['username'] = $username;
+        header("Location: userPage.php");
         exit();
     } else {
         // User not found, redirect back to login page with error message
@@ -34,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>
