@@ -5,11 +5,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if form fields are set and not empty
     if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmPassword']) &&
         !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
-
-        $servername = "localhost";
+        $servername = "localhost"; 
         $username = "60531845";
-        $password = "60531845";
-        $dbname = "db_60531845";
+        $password = "60531845"; 
+        $dbname = "db_60531845"; 
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -37,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare SQL statement to insert user data using prepared statements
         $sql = "INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
+
+        // Bind parameters
         $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
         // Execute the prepared statement
@@ -46,9 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: login.php");
             exit;
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
 
+        // Close statement and connection
         $stmt->close();
         $conn->close();
     } else {
