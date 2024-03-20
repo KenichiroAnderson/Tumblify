@@ -1,3 +1,62 @@
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if form fields are set and not empty
+    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmPassword']) &&
+        !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
+
+        $servername = "localhost";
+        $username = "60531845";
+        $password = "60531845";
+        $dbname = "db_60531845";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Retrieve form data and sanitize inputs
+        $username = mysqli_real_escape_string($conn, $_POST['username']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $confirmPassword = mysqli_real_escape_string($conn, $_POST['confirmPassword']);
+
+        // Check if password matches confirm password
+        if ($password !== $confirmPassword) {
+            echo "Passwords do not match!";
+            exit;
+        }
+
+        // Hash the password for security
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare SQL statement to insert user data using prepared statements
+        $sql = "INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+
+        // Execute the prepared statement
+        if ($stmt->execute()) {
+            echo "User registered successfully!";
+            // Redirect to login page
+            header("Location: login.php");
+            exit;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        echo "All fields are required!";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +77,7 @@
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
