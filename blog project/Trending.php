@@ -57,9 +57,29 @@
         } else {
             echo "0 results";
         }
-
+        
         $conn->close();
     ?>
+
+    <script>
+          $(document).ready(function () {
+            fetchPosts(); // Fetch posts when the page loads
+
+            function fetchPosts() {
+                $.ajax({
+                    url: 'fetch-posts.php', // PHP script to fetch posts data
+                    type: 'GET',
+                    success: function (data) {
+                        $('#posts-container').html(data); // Update posts container with fetched data
+                    }
+                });
+            }
+
+            // Refresh posts every 30 seconds
+            setInterval(fetchPosts, 30000); // 30 seconds interval
+        });
+    </script>
+
     </main>
 </body>
 
