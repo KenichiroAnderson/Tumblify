@@ -26,7 +26,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <!-- always update these when you make a new header, do for all pages-->
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
-                <li><a href="login.php">Log In</a></li>
+                <?php
+                session_start();
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                    // If user is logged in, display their username next to an icon
+                    echo "<li><a href='userPage.php'><img src='images/user-icon.png' alt='User Icon'> " . $_SESSION['username'] . "</a></li>";
+                } else {
+                    // If user is not logged in, display the login link
+                    echo "<li><a href='login.php'>Log In</a></li>";
+                }
+                ?>
                 <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
