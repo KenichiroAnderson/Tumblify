@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (xhr.status === 200) {
                         console.log("Login Successful!");
                         // Redirect to user page
-                        window.location.href = "userPage.html";
+                        window.location.href = "userPage.php";
                     } else {
                         console.log("Login Failed!");
                         alert("Invalid username or password. Please try again.");
