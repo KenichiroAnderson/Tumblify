@@ -21,6 +21,7 @@
     </header>
     <main>
         <?php
+        session_start();
         // Database connection
         $servername = "localhost"; 
         $username = "60531845";
@@ -33,6 +34,12 @@
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
+        }
+
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+            // If not logged in, redirect to login page
+            header("Location: login.php");
+            exit;
         }
 
         // SQL query to fetch posts data with author information
