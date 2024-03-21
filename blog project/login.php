@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container">
             <h2>Log In</h2>
             <!--redirect when you want to register-->
-            <p>Don't have an account? <a href="signup.html">Register here</a>.</p>
+            <p>Don't have an account? <a href="signup.php">Register here</a>.</p>
             <form id="loginForm" onsubmit="return validateForm(event)">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>

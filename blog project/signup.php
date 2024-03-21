@@ -1,3 +1,61 @@
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $servername = "localhost"; 
+    $username = "60531845";
+    $password = "60531845"; 
+    $dbname = "db_60531845"; 
+
+    // Create connection
+    $conn = new mysqli($servername, $username_db, $password_db, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Retrieve username from POST request
+    $username = $_POST['username'];
+
+    // Prepare SQL statement to retrieve hashed password from the database
+    $sql = "SELECT Password FROM Users WHERE Username=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if user exists
+    if ($result->num_rows > 0) {
+        // User found, retrieve hashed password from the result
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['Password'];
+
+        // Retrieve password from POST request
+        $password = $_POST['password'];
+
+        // Verify password using password_verify
+        if (password_verify($password, $hashedPassword)) {
+            // Password is correct, set session variables and redirect to user page
+            $_SESSION['username'] = $username;
+            header("Location: userPage.php");
+            exit();
+        } else {
+            // Password is incorrect, redirect back to login page with error message
+            header("Location: login.php?error=1");
+            exit();
+        }
+    } else {
+        // User not found, redirect back to login page with error message
+        header("Location: login.php?error=1");
+        exit();
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +76,7 @@
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
