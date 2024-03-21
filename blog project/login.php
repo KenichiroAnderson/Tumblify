@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- always update these when you make a new header, do for all pages-->
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
-                <li><a href="search-form.html">Search</a></li>
+                <li><a href="search-form.php">Search</a></li>
                 <li><a href="login.php">Log In</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
             </ul>
