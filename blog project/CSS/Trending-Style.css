@@ -82,6 +82,12 @@ figure {
     padding-bottom: 60%;
 }
 
+.user-icon {
+    width: 5px;
+    height: auto;
+    margin-right: 5px;
+}
+
 .share-image-container {
     display: flex;
     height: 25px;
@@ -115,10 +121,4 @@ p {
     text-decoration: none;
     display: inline-block;
     border-radius: 3px;
-}
-
-.user-icon {
-    width: 20px;
-    height: auto;
-    margin-right: 5px;
 }
