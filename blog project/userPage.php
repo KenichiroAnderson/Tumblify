@@ -31,7 +31,7 @@ $password = $_SESSION['password'];
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li><a href="logout.php">Log Out</a></li>
-                <li><a href="#"><img src="images/user-icon.png" alt="User Icon" class="user-icon"> <?php echo $_SESSION['username']; ?></a></li>
+                <li><a href="#"><img src="images/user-icon.jpg" alt="User Icon" class="user-icon"> <?php echo $_SESSION['username']; ?></a></li>
             </ul>
         </nav>
     </header>
