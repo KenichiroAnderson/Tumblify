@@ -30,8 +30,8 @@ $password = $_SESSION['password'];
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
+                <li class="user-icon-container"><a href="userPage.php"><span class="user-icon" style="color: white;">&#x1F47B;</span> <?php echo $username; ?></a></li>
                 <li><a href="logout.php">Log Out</a></li>
-                <li><a href="#"><img src="images/user-icon.jpg" alt="User Icon" class="user-icon"> <?php echo $_SESSION['username']; ?></a></li>
             </ul>
         </nav>
     </header>
