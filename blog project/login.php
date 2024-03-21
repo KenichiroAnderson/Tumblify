@@ -3,11 +3,11 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
-        $username = "60531845"; 
-        $password = "60531845";
-        $dbname = "db_60531845";
+    $usernameDB = "60531845"; 
+    $passwordDB = "60531845";
+    $dbname = "db_60531845";
     // Create connection
-    $conn = new mysqli($servername, $Username, $Password, $dbname);
+    $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
@@ -15,17 +15,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Retrieve username and password from POST request
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $conn->real_escape_string($_POST['username']); // Sanitize input
+    $password = $conn->real_escape_string($_POST['password']); // Sanitize input
 
-    // Prepare SQL statement to retrieve user data
-    $sql = "SELECT * FROM Users WHERE Username='$username' AND Pass='$Password'";
-    $result = $conn->query($sql);
+    // Prepare SQL statement using prepared statement
+    $sql = "SELECT * FROM Users WHERE Username=? AND Pass=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     // Check if user exists
     if ($result->num_rows > 0) {
-        // User found, set session variables and redirect to user page
-        $_SESSION['username'] = $Username;
+        // User found, set session variables
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $username;
+
+        // Fetch additional user information if needed
+        $row = $result->fetch_assoc();
+        $_SESSION['email'] = $row['Email'];
+        $_SESSION['password'] = $row['Pass'];
+
+        // Redirect to user page
         header("Location: userPage.php");
         exit();
     } else {
@@ -34,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>
