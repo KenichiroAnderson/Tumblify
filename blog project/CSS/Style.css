@@ -43,6 +43,7 @@ input {
     border: none;
     border-radius: 3px;
 }
+
 main {
     display: flex;
     flex-wrap: wrap;
@@ -65,4 +66,10 @@ h2 {
 p {
     line-height: 1.6;
     color: #555;
+}
+
+.user-icon {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
 }
