@@ -120,5 +120,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 
 </body>
+    <script>
+        // Refresh the page every 30 seconds
+        setInterval(function () {
+            location.reload();
+        }, 30000);
+    </script>
 
 </html>

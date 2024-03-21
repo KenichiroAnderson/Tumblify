@@ -2,10 +2,10 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $servername = "localhost"; 
-    $username = "60531845";
-    $password = "60531845"; 
-    $dbname = "db_60531845"; 
+    $servername = "localhost";
+    $username_db = "60531845";
+    $password_db = "60531845";
+    $dbname = "db_60531845";
 
     // Create connection
     $conn = new mysqli($servername, $username_db, $password_db, $dbname);
@@ -64,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Signup-Style.css">
     <title>Sign Up</title>
-
 </head>
 
 <body>
@@ -85,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container">
             <!-- onsubmit means when the form is complete we send the data to validateForm method-->
             <form id="signupForm" action="#" onsubmit="return validateForm()">
-                <h2>Ticket Tech Registration </h2>
+                <h2>Ticket Tech Registration</h2>
                 <!--link to login if you have an account-->
                 <p>Already have an account? <a href="login.php">Log in here</a>.</p>
                 <label for="username">Username:</label>
@@ -109,8 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
             <div id="successMessage">Your account has been successfully validated! Page Will Redirect Within 20 Seconds.</div>
         </div>
-
     </main>
+
     <script>
         function validateForm() {
             event.preventDefault();
@@ -132,34 +131,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             var isValid = true;
 
-            //Username Error Msg / checker
+            // Username Error Msg / checker
             if (username.trim() === "") {
                 usernameError.innerHTML = "Username is required!";
                 isValid = false;
             }
-            //email Error Msg / checker
+            // Email Error Msg / checker
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 emailError.innerHTML = "Enter a valid email!";
                 isValid = false;
             }
-            //password Error Msg / checker
+            // Password Error Msg / checker
             if (password.length < 8) {
-                passwordError.innerHTML = "Password Must be at least 8 characters long!";
+                passwordError.innerHTML = "Password must be at least 8 characters long!";
                 isValid = false;
             }
-            //ensure password and confim are the same
+            // Ensure password and confirm are the same
             if (confirmPassword !== password) {
-                confirmPasswordError.innerHTML = "passwords do not match!";
+                confirmPasswordError.innerHTML = "Passwords do not match!";
                 isValid = false;
             }
-            //user feedback for account validation
+            // User feedback for account validation
             if (isValid) {
-                //alert("Account Successfuly Validated");
-                saveUserInformation(username, email, password);
-
                 // Print user data to console
-                //**!!! get rid of before final submission or comment it out as this is bad for security !!!**
+                // **!!! get rid of before final submission or comment it out as this is bad for security !!!**
                 console.log("User Data:", {
                     username,
                     email,
@@ -170,23 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             return isValid;
         }
-        // Function to save user information to localStorage, this will change when we figure out db stuff as this only works client side not server side
-        function saveUserInformation(username, email, password) {
-            var userData = JSON.parse(localStorage.getItem("userData")) || [];
 
-            userData.push({
-                username: username,
-                email: email,
-                password: password
-            });
-
-            localStorage.setItem("userData", JSON.stringify(userData));
-        }
         // Function to display success message and redirect to login page
         function showSuccessMessage() {
             var successMessage = document.getElementById("successMessage");
             successMessage.style.display = "block";
-            setTimeout(function() {
+            setTimeout(function () {
                 successMessage.style.display = "none";
 
                 // Redirect to the login page

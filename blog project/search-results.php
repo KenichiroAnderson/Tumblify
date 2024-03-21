@@ -46,5 +46,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <p>Sorry, nothing can be found.</p>
     </main>
 </body>
+    <script>
+        // Refresh the page every 30 seconds
+        setInterval(function () {
+            location.reload();
+        }, 30000);
+    </script>
 
 </html>
