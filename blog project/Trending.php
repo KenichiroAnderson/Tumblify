@@ -13,7 +13,7 @@
         <nav>
             <ul>
             <li><a href="Trending.php">Trending Blogs</a></li>
-                <li><a href="search-form.html">Search</a></li>
+                <li><a href="search-form.php">Search</a></li>
                 <?php
                 session_start();
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
