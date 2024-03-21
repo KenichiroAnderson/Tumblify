@@ -71,7 +71,7 @@
                 echo "</div>";
                 echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
                 echo "</article>";
-            }
+            }            
         } else {
             echo "0 results";
         }
@@ -80,14 +80,13 @@
         ?>
 
         <!-- Comments Popup Container -->
-        <div id="commentsPopup" class="comments-popup">
+        <div id="commentsPopup_<?php echo $row["PostID"]; ?>" class="comments-popup" style="display: none;">
             <div class="comments-popup-content">
-                <span class="close" onclick="closeCommentsPopup()">&times;</span>
+                <span class="close" onclick="closeCommentsPopup(<?php echo $row["PostID"]; ?>)">&times;</span>
                 <h2>Comments</h2>
-                <div id="commentsContainer"></div>
-                <form id="commentForm" class="comment-form" action="add-comment.php" method="post">
-                    <input type="hidden" id="popupPostID" name="postID" value="">
-                    <textarea id="commentText" name="commentText" placeholder="Write a comment..." required></textarea>
+                <div id="commentsContainer_<?php echo $row["PostID"]; ?>"></div>
+                <form id="commentForm_<?php echo $row["PostID"]; ?>" class="comment-form" onsubmit="return addComment(<?php echo $row["PostID"]; ?>)">
+                    <textarea id="commentText_<?php echo $row["PostID"]; ?>" name="commentText" placeholder="Write a comment..." required></textarea>
                     <button type="submit">Add Comment</button>
                 </form>
             </div>
@@ -111,28 +110,25 @@
             // Refresh posts every 30 seconds
             setInterval(fetchPosts, 30000); // 30 seconds interval
         });
-
         // Function to open comments popup
         function openCommentsPopup(postID) {
-            document.getElementById('popupPostID').value = postID;
-            document.getElementById('commentsPopup').style.display = 'block';
-            fetchComments(postID); // Fetch comments for the selected post
+            document.getElementById('commentsPopup_' + postID).style.display = 'block';
+            fetchComments(postID);
         }
 
         // Function to close comments popup
-        function closeCommentsPopup() {
-            document.getElementById('commentsPopup').style.display = 'none';
+        function closeCommentsPopup(postID) {
+            document.getElementById('commentsPopup_' + postID).style.display = 'none';
         }
 
         // Function to fetch comments for a post
         function fetchComments(postID) {
-            // Make an AJAX request to fetch comments for the selected post
             $.ajax({
                 url: 'fetch-comments.php',
                 type: 'GET',
                 data: { postID: postID },
                 success: function (data) {
-                    $('#commentsContainer_' + postID).html(data); // Update the comments container for the specific post
+                    $('#commentsContainer_' + postID).html(data);
                 },
                 error: function () {
                     alert('Error fetching comments.');
@@ -140,6 +136,30 @@
             });
         }
 
+        // Function to add comment
+        function addComment(postID) {
+            var commentText = $('#commentText_' + postID).val();
+            $.ajax({
+                url: 'add-comment.php',
+                type: 'POST',
+                data: {
+                    postID: postID,
+                    commentText: commentText
+                },
+                success: function (response) {
+                    if (response === 'success') {
+                        fetchComments(postID); // Refresh comments after adding
+                        $('#commentText_' + postID).val(''); // Clear comment text area
+                    } else {
+                        alert('Error adding comment.');
+                    }
+                },
+                error: function () {
+                    alert('Error adding comment.');
+                }
+            });
+            return false; // Prevent form submission
+        }
     </script>
 </body>
 
