@@ -29,7 +29,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 session_start();
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     // If user is logged in, display their username next to an icon
-                    echo "<li><a href='userPage.php'><img src='images/user-icon.png' alt='User Icon' class='user-icon'> > " . $_SESSION['username'] . "</a></li>";
+                    echo "<li><a href='userPage.php'><img src='images/user-icon.png' alt='User Icon' class='user-icon'> " . $_SESSION['username'] . "</a></li>";
                 } else {
                     // If user is not logged in, display the login link
                     echo "<li><a href='login.php'>Log In</a></li>";
