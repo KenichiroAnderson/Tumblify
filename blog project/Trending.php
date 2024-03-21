@@ -125,8 +125,14 @@
 
         // Function to fetch comments for a post
         function fetchComments(postID) {
-            // Make an AJAX request to fetch comments for the selected post
-            // Update the commentsContainer with the fetched comments
+            $.ajax({
+                url: 'fetch-comments.php',
+                type: 'POST',
+                data: { postID: postID },
+                success: function(data) {
+                    $('#commentsContainer').html(data); // Update comments container with fetched comments
+                }
+            });
         }
     </script>
 </body>
