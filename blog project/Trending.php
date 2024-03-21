@@ -59,8 +59,8 @@
         if ($result->num_rows > 0) {
             // Output data of each row
             while ($row = $result->fetch_assoc()) {
+                // Output post content
                 echo "<article>";
-                // Post content display
                 echo "<h1>";
                 echo "<div><a rel='author'>" . $row["Username"] . "</a><button class='follow'>Follow</button></div>";
                 echo "</h1>";
@@ -69,6 +69,7 @@
                 echo "<p>" . $row["Text"] . "</p>";
                 echo "<button class='comment-button' onclick='openCommentsPopup(" . $row["PostID"] . ")'>View/Add Comments</button>";
                 echo "</div>";
+                echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
                 echo "</article>";
             }
         } else {
@@ -125,15 +126,20 @@
 
         // Function to fetch comments for a post
         function fetchComments(postID) {
+            // Make an AJAX request to fetch comments for the selected post
             $.ajax({
                 url: 'fetch-comments.php',
-                type: 'POST',
+                type: 'GET',
                 data: { postID: postID },
-                success: function(data) {
-                    $('#commentsContainer').html(data); // Update comments container with fetched comments
+                success: function (data) {
+                    $('#commentsContainer_' + postID).html(data); // Update the comments container for the specific post
+                },
+                error: function () {
+                    alert('Error fetching comments.');
                 }
             });
         }
+
     </script>
 </body>
 
