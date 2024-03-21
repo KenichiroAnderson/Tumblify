@@ -31,7 +31,7 @@ $password = $_SESSION['password'];
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.html">Search</a></li>
                 <li class="user-icon-container"><a href="userPage.php"><span class="user-icon" style="color: white;">&#x1F47B;</span> <?php echo $username; ?></a></li>
-                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="logout.php">Log Out</a></li> <!-- Updated logout link -->
             </ul>
         </nav>
     </header>
