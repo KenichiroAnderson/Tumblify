@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <div class="container">
             <!-- onsubmit means when the form is complete we send the data to validateForm method-->
-            <form id="signupForm" action="#" method="post" onsubmit="return validateForm()">
+            <form id="signupForm" action="#" method="POST" onsubmit="return validateForm()">
                 <h2>Ticket Tech Registration</h2>
                 <!-- link to login if you have an account-->
                 <p>Already have an account? <a href="login.php">Log in here</a>.</p>
