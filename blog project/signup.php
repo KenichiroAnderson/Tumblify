@@ -3,9 +3,9 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Database connection parameters
     $servername = "localhost";
-    $username = "60531845";
-    $password = "60531845";
-    $dbname = "db_60531845";
+    $username = "your_username";
+    $password = "your_password";
+    $dbname = "your_database_name";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare and bind SQL statement
-    $stmt = $conn->prepare("INSERT INTO Users (UserID, Username, Email, Pass, Confirmpassword) VALUES (NULL, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $username, $email, $password, $confirmPassword);
 
     // Set parameters and execute
