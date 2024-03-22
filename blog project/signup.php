@@ -72,11 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <main>
         <div class="container">
-            <h2>Sign Up</h2>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <h2>Ticket Tech Registration</h2>
-                <!-- link to login if you have an account-->
-                <p>Already have an account? <a href="login.php">Log in here</a>.</p>
+        <h2>Ticket Tech Registration</h2>
+        <!-- link to login if you have an account-->
+        <p>Already have an account? <a href="login.php">Log in here</a>.</p>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">        
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
