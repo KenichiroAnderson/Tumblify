@@ -14,31 +14,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve username and password from POST request
+    // Retrieve username from POST request
     $username = $conn->real_escape_string($_POST['username']); // Sanitize input
-    $password = $conn->real_escape_string($_POST['password']); // Sanitize input
 
     // Prepare SQL statement using prepared statement
-    $sql = "SELECT * FROM Users WHERE Username=? AND Pass=?";
+    $sql = "SELECT * FROM Users WHERE Username=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $password);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
     // Check if user exists
     if ($result->num_rows > 0) {
-        // User found, set session variables
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-
-        // Fetch additional user information if needed
+        // User found, fetch user data
         $row = $result->fetch_assoc();
-        $_SESSION['email'] = $row['Email'];
-        $_SESSION['password'] = $row['Pass'];
+        $hashedPassword = $row['Pass'];
 
-        // Redirect to user page
-        header("Location: userPage.php");
-        exit();
+        // Verify password
+        $password = $_POST['password'];
+        if (password_verify($password, $hashedPassword)) {
+            // Password is correct, set session variables
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $row['Email'];
+
+            // Redirect to user page
+            header("Location: userPage.php");
+            exit();
+        } else {
+            // Password is incorrect, redirect back to login page with error message
+            header("Location: login.php?error=1");
+            exit();
+        }
     } else {
         // User not found, redirect back to login page with error message
         header("Location: login.php?error=1");
