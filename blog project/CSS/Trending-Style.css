@@ -132,17 +132,16 @@ p {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .comments-popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     max-width: 80%;
+    max-height: 80%;
     overflow-y: auto;
 }
 
@@ -151,8 +150,4 @@ p {
     top: 10px;
     right: 10px;
     cursor: pointer;
-}
-
-.comment-form {
-    margin-top: 20px;
 }
