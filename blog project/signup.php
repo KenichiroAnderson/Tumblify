@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass =$_POST['Pass']; // Hash the password
 
     // Prepare and bind SQL statement to insert user data into the database
-    $sql = "INSERT INTO Users (Username, Email, Pass) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $username, $email, $password);
+    $sql = "INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES ($username, $email, $password, $password)";
+    //$stmt = $conn->prepare($sql);
+    //$stmt->bind_param("sss", $username, $email, $password, $password);
 
     // Execute the statement
-    if ($stmt->execute()) {
+    if ($conn -> query($sql)===True) {
         // Account successfully created, redirect to login page
         header("Location: login.php");
         exit();
