@@ -1,44 +1,12 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
+/* Add the appropriate styling to match the design */
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-main {
-    max-width: 600px;
+.container {
+    max-width: 400px;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -58,32 +26,26 @@ input {
     border-radius: 3px;
 }
 
-button {
+.btn {
     padding: 10px;
     background-color: #333;
     color: #fff;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.error-message {
+.btn:hover {
+    background-color: #555;
+}
+
+.error {
     color: #d9534f;
     margin-top: 5px;
 }
 
-#successMessage {
-    /*set to invisible so we can activate it later*/
-    display: none;
-    background-color: #5cb85c;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.user-icon {
-    width: 20px;
-    height: auto;
-    margin-right: 5px;
+.success {
+    color: #5cb85c;
+    margin-top: 5px;
 }
