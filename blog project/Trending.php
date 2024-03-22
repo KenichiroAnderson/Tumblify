@@ -168,7 +168,7 @@
                         fetchComments(postID); // Refresh comments after adding
                         $('#commentText').val(''); // Clear comment text area
                     } else {
-                        alert('Error adding comment.');
+                        alert('Error adding comment blank space.');
                     }
                 },
                 error: function () {
