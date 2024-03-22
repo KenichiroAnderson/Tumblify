@@ -64,11 +64,9 @@
                 // Check if user is logged in to enable certain actions
                 if ($loggedin) {
                     echo "<button class='follow'>Follow</button>";
-                    echo "<button class='comment-button' onclick='openCommentsPopup(" . $row["PostID"] . ")'>View/Add Comments</button>";
                 } else {
                     // If user is not logged in, disable comment button and follow button
                     echo "<button class='follow' disabled>Follow</button>";
-                    echo "<button class='comment-button' disabled>View/Add Comments</button>";
                 }
 
                 echo "</div>";
@@ -77,6 +75,12 @@
                 echo "<figure><img src='" . $row["ImageURL"] . "' alt='Post Image'></figure>";
                 echo "<p>" . $row["Text"] . "</p>";
                 echo "</div>";
+                if ($loggedin) {
+                    echo "<button class='comment-button' onclick='openCommentsPopup(" . $row["PostID"] . ")'>View/Add Comments</button>";
+                } else {
+
+                    echo "<button class='comment-button' disabled>View/Add Comments</button>";
+                }
                 echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
                 echo "</article>";
             }
