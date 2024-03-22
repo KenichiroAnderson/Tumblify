@@ -23,12 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare and bind SQL statement to insert user data into the database
     $sql = "INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES ('$username', '$email', '$password', '$confirmpassword')";
-   // $stmt = $conn->prepare($sql);
-    //$stmt->bind_param("ssss", $username, $email, $password, $confirmpassword);
 
     // Execute the statement
-    /*
-    if ($stmt->execute()) {
+    if ($conn->query($sql) === TRUE) {
         // Account successfully created, redirect to login page
         header("Location: login.php");
         exit();
@@ -37,13 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: signup.php?error=1");
         exit();
     }
-    */
 
-    $stmt->close();
     $conn->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
