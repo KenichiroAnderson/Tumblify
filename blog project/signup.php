@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>
         <h1>Tumblify</h1>
+        <p>Welcome to Tumblify - Your platform for microblogging</p>
         <nav>
             <!-- always update these when you make a new header, do for all pages-->
             <ul>
@@ -83,5 +84,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="success-message" id="successMessage">New record created successfully</div>
         </div>
     </main>
+    <script>
+        // Show success message after form submission
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if success message is set to display
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage.innerHTML.trim() !== '') {
+                successMessage.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
