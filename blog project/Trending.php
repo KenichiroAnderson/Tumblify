@@ -94,12 +94,13 @@
                 <h2>Comments</h2>
                 <div id="commentsContainer"></div>
                 <form id="commentForm" class="comment-form" <?php if (!$loggedin) echo "style='display: none;'"; ?> onsubmit="return addComment()">
+                    <input type="hidden" id="postID" name="postID" value="">
                     <textarea id="commentText" name="commentText" placeholder="Write a comment..." required></textarea>
                     <button type="submit">Add Comment</button>
                 </form>
                 <?php if (!$loggedin) echo "<p>Please log in to add comments.</p>"; ?>
             </div>
-    </div>        
+        </div>      
 </main>
 
     <script>
@@ -119,17 +120,18 @@
             // Refresh posts every 30 seconds
             setInterval(fetchPosts, 30000); // 30 seconds interval
         });
+
+        // Function to close comments popup
+        function closeCommentsPopup() {
+            document.getElementById('commentsPopup').style.display = 'none';
+        }
         // Function to open comments popup
         function openCommentsPopup(postID) {
             <?php if ($loggedin): ?>
                 document.getElementById('commentsPopup').style.display = 'block';
                 fetchComments(postID);
+                document.getElementById('postID').value = postID; // Set the postID in the hidden field
             <?php endif; ?>
-        }
-
-        // Function to close comments popup
-        function closeCommentsPopup() {
-            document.getElementById('commentsPopup').style.display = 'none';
         }
 
         // Function to fetch comments for a post
@@ -149,16 +151,18 @@
 
         // Function to add comment
         function addComment() {
+            var postID = $('#postID').val(); // Get the postID from the hidden field
             var commentText = $('#commentText').val();
             $.ajax({
                 url: 'add-comment.php',
                 type: 'POST',
                 data: {
+                    postID: postID, // Pass the postID to the server
                     commentText: commentText
                 },
                 success: function (response) {
                     if (response === 'success') {
-                        fetchComments(); // Refresh comments after adding
+                        fetchComments(postID); // Refresh comments after adding
                         $('#commentText').val(''); // Clear comment text area
                     } else {
                         alert('Error adding comment.');
@@ -170,6 +174,8 @@
             });
             return false; // Prevent form submission
         }
+
+
     </script>
 </body>
 
