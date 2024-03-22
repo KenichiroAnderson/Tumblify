@@ -87,20 +87,19 @@
         $conn->close();
         ?>
 
-        <!-- Comments Popup Container -->
         <div id="commentsPopup" class="comments-popup" style="display: none;">
             <div class="comments-popup-content">
                 <span class="close" onclick="closeCommentsPopup()">&times;</span>
+                <!-- Close button (X) -->
                 <h2>Comments</h2>
                 <div id="commentsContainer"></div>
                 <form id="commentForm" class="comment-form" <?php if (!$loggedin) echo "style='display: none;'"; ?> onsubmit="return addComment()">
-                    <input type="hidden" id="postID" name="postID" value="">
                     <textarea id="commentText" name="commentText" placeholder="Write a comment..." required></textarea>
                     <button type="submit">Add Comment</button>
                 </form>
                 <?php if (!$loggedin) echo "<p>Please log in to add comments.</p>"; ?>
             </div>
-        </div>      
+        </div> 
 </main>
 
     <script>
