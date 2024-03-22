@@ -3,9 +3,9 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Database connection parameters
     $servername = "localhost";
-    $username = "your_username";
-    $password = "your_password";
-    $dbname = "your_database_name";
+    $username = "60531845";
+    $password = "60531845";
+    $dbname = "db_60531845";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
