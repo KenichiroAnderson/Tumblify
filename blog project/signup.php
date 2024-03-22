@@ -42,19 +42,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="CSS/Signup-Style.css">
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Username validation
+            if (username.trim() === "") {
+                alert("Username is required!");
+                return false;
+            }
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Enter a valid email address!");
+                return false;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long!");
+                return false;
+            }
+
+            // Password and Confirm Password match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-        <label for="confirmPassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPassword" name="confirmPassword" required><br>
-        <input type="submit" value="Sign Up">
-    </form>
+    <header>
+        <h1>Tumblify</h1>
+        <nav>
+            <!-- always update these when you make a new header, do for all pages-->
+            <ul>
+                <li><a href="Trending.php">Trending Blogs</a></li>
+                <li><a href="search-form.php">Search</a></li>
+                <li><a href="login.php">Log In</a></li>
+                <li><a href="signup.php">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Sign Up</h2>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>
