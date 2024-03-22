@@ -43,41 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="CSS/Signup-Style.css">
-    <script>
-        function validateForm() {
-            var username = document.getElementById("username").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-
-            // Username validation
-            if (username.trim() === "") {
-                alert("Username is required!");
-                return false;
-            }
-
-            // Email validation
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert("Enter a valid email address!");
-                return false;
-            }
-
-            // Password validation
-            if (password.length < 8) {
-                alert("Password must be at least 8 characters long!");
-                return false;
-            }
-
-            // Password and Confirm Password match
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -96,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <div class="container">
             <h2>Sign Up</h2>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
