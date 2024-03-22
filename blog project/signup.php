@@ -18,14 +18,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user input from POST request
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = $_POST['password']; // Hash the password - do this if you haven't implemented yet
-    $confirmpassword = $_POST['confirmPassword'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    // Hash the passwords
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
 
     // Prepare and bind SQL statement to insert user data into the database
-    $sql = "INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES ('$username', '$email', '$password', '$confirmpassword')";
+    $sql = "INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $username, $email, $hashedPassword, $hashedConfirmPassword);
 
     // Execute the statement
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         // Account successfully created, redirect to login page
         header("Location: login.php");
         exit();
@@ -35,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>
@@ -67,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container">
             <h2>Sign Up</h2>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <h2>Ticket Tech Registration</h2>
+                <!-- link to login if you have an account-->
+                <p>Already have an account? <a href="login.php">Log in here</a>.</p>
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
