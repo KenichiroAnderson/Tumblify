@@ -15,39 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve username from POST request
+    // Retrieve user input from POST request
     $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
 
-    // Prepare SQL statement to retrieve hashed password from the database
-    $sql = "SELECT Password FROM Users WHERE Username=?";
+    // Prepare and bind SQL statement to insert user data into the database
+    $sql = "INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $stmt->bind_param("sss", $username, $email, $password);
 
-    // Check if user exists
-    if ($result->num_rows > 0) {
-        // User found, retrieve hashed password from the result
-        $row = $result->fetch_assoc();
-        $hashedPassword = $row['Password'];
-
-        // Retrieve password from POST request
-        $password = $_POST['password'];
-
-        // Verify password using password_verify
-        if (password_verify($password, $hashedPassword)) {
-            // Password is correct, set session variables and redirect to user page
-            $_SESSION['username'] = $username;
-            header("Location: userPage.php");
-            exit();
-        } else {
-            // Password is incorrect, redirect back to login page with error message
-            header("Location: login.php?error=1");
-            exit();
-        }
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Account successfully created, redirect to login page
+        header("Location: login.php");
+        exit();
     } else {
-        // User not found, redirect back to login page with error message
-        header("Location: login.php?error=1");
+        // Error occurred, redirect back to signup page with error message
+        header("Location: signup.php?error=1");
         exit();
     }
 
@@ -83,23 +68,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <div class="container">
             <!-- onsubmit means when the form is complete we send the data to validateForm method-->
-            <form id="signupForm" action="#" onsubmit="return validateForm()">
+            <form id="signupForm" action="#" method="post" onsubmit="return validateForm()">
                 <h2>Ticket Tech Registration</h2>
-                <!--link to login if you have an account-->
+                <!-- link to login if you have an account-->
                 <p>Already have an account? <a href="login.php">Log in here</a>.</p>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 <span id="usernameError" class="error-message"></span>
 
-                <!--E-mail-->
+                <!-- E-mail -->
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
                 <span id="emailError" class="error-message"></span>
-                <!--Password, 1st box-->
+                <!-- Password, 1st box -->
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 <span id="passwordError" class="error-message"></span>
-                <!--Password, 2nd box-->
+                <!-- Password, 2nd box -->
                 <label for="confirmPassword">Confirm Password:</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
                 <span id="confirmPasswordError" class="error-message"></span>
@@ -163,8 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 });
 
                 showSuccessMessage();
+                return isValid;
             }
-            return isValid;
         }
 
         // Function to display success message and redirect to login page
@@ -183,3 +168,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+
