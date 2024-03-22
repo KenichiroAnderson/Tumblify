@@ -59,9 +59,6 @@
                 // Output post content
                 echo "<article>";
                 echo "<h1>";
-                echo "<div><a rel='author'>" . $row["Username"] . "</a>";
-                echo "<article>";
-                echo "<h1>";
                 echo "<div><a rel='author'>" . $row["Username"] . "</a></div>";
                 echo "</h1>";
                 echo "<div>";
