@@ -16,12 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Retrieve user input from POST request
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
+    $username = $_POST['Username'];
+    $email = $_POST['Email'];
+    $pass =$_POST['Pass']; // Hash the password
 
     // Prepare and bind SQL statement to insert user data into the database
-    $sql = "INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Users (Username, Email, Pass) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $username, $email, $password);
 
