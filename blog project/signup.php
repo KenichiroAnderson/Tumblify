@@ -80,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
             </form>
+            <div class="success-message" id="successMessage">New record created successfully</div>
         </div>
     </main>
 </body>

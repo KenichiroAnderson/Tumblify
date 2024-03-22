@@ -82,6 +82,16 @@ button {
     margin-top: 10px;
 }
 
+.success-message {
+    display: none;
+    background-color: #5cb85c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
 .user-icon {
     width: 20px;
     height: auto;
