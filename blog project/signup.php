@@ -18,15 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user input from POST request
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $pass =$_POST['password']; // Hash the password
+    $password = $_POST['password']; // Hash the password - do this if you haven't implemented yet
+    $confirmpassword = $_POST['confirmPassword'];
 
     // Prepare and bind SQL statement to insert user data into the database
-    $sql = "INSERT INTO Users(Username, Email, Pass, Confirmpassword)VALUES ($username, $email, $password, $password)";
-    //$stmt = $conn->prepare($sql);
-    //$stmt->bind_param("sss", $username, $email, $password, $password);
+    $sql = "INSERT INTO Users (Username, Email, Pass, Confirmpassword) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $username, $email, $password, $confirmpassword);
 
     // Execute the statement
-    if ($conn -> query($sql)===True) {
+    if ($stmt->execute()) {
         // Account successfully created, redirect to login page
         header("Location: login.php");
         exit();
@@ -40,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
