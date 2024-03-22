@@ -60,6 +60,17 @@
                 echo "<article>";
                 echo "<h1>";
                 echo "<div><a rel='author'>" . $row["Username"] . "</a>";
+                echo "<article>";
+                echo "<h1>";
+                echo "<div><a rel='author'>" . $row["Username"] . "</a></div>";
+                echo "</h1>";
+                echo "<div>";
+                echo "<figure><img src='" . $row["ImageURL"] . "' alt='Post Image'></figure>";
+                echo "<p>" . $row["Text"] . "</p>";
+                echo "<button class='comment-button' onclick='openCommentsPopup(" . $row["PostID"] . ")'>View/Add Comments</button>";
+                echo "</div>";
+                echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
+                echo "</article>";
 
                 // Check if user is logged in to enable certain actions
                 if ($loggedin) {
@@ -71,14 +82,7 @@
                     echo "<button class='comment-button' disabled>View/Add Comments</button>";
                 }
 
-                echo "</div>";
-                echo "</h1>";
-                echo "<div>";
-                echo "<figure><img src='" . $row["ImageURL"] . "' alt='Post Image'></figure>";
-                echo "<p>" . $row["Text"] . "</p>";
-                echo "</div>";
-                echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
-                echo "</article>";
+                
             }
         } else {
             echo "0 results";
