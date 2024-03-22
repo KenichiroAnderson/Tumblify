@@ -37,8 +37,9 @@ main {
     max-width: 600px;
     margin: 20px auto;
     background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -47,24 +48,28 @@ form {
 }
 
 label {
-    margin-top: 10px;
+    margin-top: 15px;
     font-weight: bold;
 }
 
 input {
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 button {
     padding: 10px;
-    background-color: #333;
+    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 .error-message {
@@ -72,18 +77,17 @@ button {
     margin-top: 5px;
 }
 
-#successMessage {
-    /*set to invisible so we can activate it later*/
-    display: none;
-    background-color: #5cb85c;
-    color: #fff;
-    padding: 10px;
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
     border-radius: 5px;
+    padding: 10px;
     margin-top: 10px;
 }
 
-.user-icon {
-    width: 20px;
-    height: auto;
-    margin-right: 5px;
+.success-message:before {
+    content: "\2713 ";
+    color: #155724;
+    font-weight: bold;
 }
