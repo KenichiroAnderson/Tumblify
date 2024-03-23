@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usernameDB = "60531845"; 
     $passwordDB = "60531845";
     $dbname = "db_60531845";
-    
     // Create connection
     $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
@@ -39,18 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $row['Email'];
 
-            // Check if the user is an admin
-            if ($row['isAdmin'] == 1) {
-                // Set admin session variable
-                $_SESSION['isAdmin'] = true;
-                // Redirect admin to the admin account page
-                header("Location: adminAccount.php");
-                exit();
-            } else {
-                // Redirect regular user to the user account page
-                header("Location: userAccount.php");
-                exit();
-            }
+            // Redirect to user page
+            header("Location: userPage.php");
+            exit();
         } else {
             // Password is incorrect, redirect back to login page with error message
             header("Location: login.php?error=1");
@@ -66,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
