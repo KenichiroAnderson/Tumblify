@@ -1,6 +1,22 @@
 <?php
-// Check if postID and commentText are provided in the request
-if(isset($_POST['postID']) && isset($_POST['commentText'])) {
+    session_start();
+
+    // Check if the user is logged in
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        echo "error"; // User is not logged in
+        exit();
+    }
+
+    // Check if all required data is provided
+    if (!isset($_POST['postID']) || !isset($_POST['commentText'])) {
+        echo "error"; // Data is not provided
+        exit();
+    }
+
+    // Sanitize inputs
+    $postID = $_POST['postID'];
+    $commentText = $_POST['commentText'];
+
     // Database connection
     $servername = "localhost";
     $username = "60531845";
@@ -12,32 +28,22 @@ if(isset($_POST['postID']) && isset($_POST['commentText'])) {
 
     // Check connection
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        echo "error"; // Connection failed
+        exit();
     }
 
-    // Sanitize postID and commentText
-    $postID = $conn->real_escape_string($_POST['postID']);
-    $commentText = $conn->real_escape_string($_POST['commentText']);
+    // Prepare statement to insert comment into the database
+    $stmt = $conn->prepare("INSERT INTO Comments (PostID, UserID, CommentText) VALUES (?, ?, ?)");
+    $stmt->bind_param("iis", $postID, $_SESSION['userID'], $commentText);
 
-    // Get the userID from the session (assuming it's stored there)
-    session_start();
-    $userID = $_SESSION['userID']; // Adjust this based on how you store userID in the session
-
-    // Get the current date and time
-    $commentDate = date("Y-m-d H:i:s");
-
-    // SQL query to insert the new comment into the Comments table
-    $sql = "INSERT INTO Comments (PostID, UserID, CommentText, CommentDate) VALUES ('$postID', '$userID', '$commentText', '$commentDate')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "success";
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "success"; // Comment added successfully
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "error"; // Error adding comment
     }
 
+    // Close statement and connection
+    $stmt->close();
     $conn->close();
-} else {
-    // If postID or commentText are not provided in the request, return an error message
-    echo "Error: postID or commentText parameter is missing.";
-}
 ?>
