@@ -120,14 +120,17 @@
             document.getElementById('postID').value = postID; // Set the postID in the hidden field
         }
 
-        // Function to fetch comments for a post
-        function fetchComments(postID) {
+                // Function to fetch comments for a post
+        function fetchComments(postID, callback) {
             $.ajax({
                 url: 'fetch-comments.php',
                 type: 'GET',
                 data: { postID: postID },
                 success: function (data) {
                     $('#commentsContainer').html(data);
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
                 },
                 error: function () {
                     alert('Error fetching comments.');
@@ -148,8 +151,10 @@
                 },
                 success: function (response) {
                     if (response === 'success') {
-                        fetchComments(postID); // Refresh comments after adding
-                        $('#commentText').val(''); // Clear comment text area
+                        // Refresh comments after adding
+                        fetchComments(postID, function() {
+                            $('#commentText').val(''); // Clear comment text area
+                        });
                     } else {
                         alert('Error adding comment.');
                     }
