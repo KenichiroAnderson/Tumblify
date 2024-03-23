@@ -41,6 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if the user is an admin
             if ($row['isAdmin'] == 1) {
+                // Set admin session variable
+                $_SESSION['isAdmin'] = true;
                 // Redirect admin to the admin account page
                 header("Location: adminAccount.php");
                 exit();
