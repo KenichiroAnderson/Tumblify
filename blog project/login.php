@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usernameDB = "60531845"; 
     $passwordDB = "60531845";
     $dbname = "db_60531845";
+    
     // Create connection
     $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 
@@ -40,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if the user is an admin
             if ($row['isAdmin'] == 1) {
-                // Redirect admin to the admin page
-                header("Location: adminPage.php");
+                // Redirect admin to the admin account page
+                header("Location: adminAccount.php");
                 exit();
             } else {
-                // Redirect regular user to the user page
-                header("Location: userPage.php");
+                // Redirect regular user to the user account page
+                header("Location: userAccount.php");
                 exit();
             }
         } else {
@@ -63,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
