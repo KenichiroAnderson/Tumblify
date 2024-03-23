@@ -98,43 +98,26 @@
                 <h2>Comments</h2>
                 <div id="commentsContainer"></div>
                 <form id="commentForm" class="comment-form" <?php if (!$loggedin) echo "style='display: none;'"; ?> onsubmit="return addComment()">
+                    <input type="hidden" id="postID" name="postID" value="">
                     <textarea id="commentText" name="commentText" placeholder="Write a comment..." required></textarea>
                     <button type="submit">Add Comment</button>
                 </form>
                 <?php if (!$loggedin) echo "<p>Please log in to add comments.</p>"; ?>
             </div>
-        </div> 
-</main>
+        </div>
+    </main>
 
     <script>
-        $(document).ready(function () {
-            fetchPosts(); // Fetch posts when the page loads
-
-            function fetchPosts() {
-                $.ajax({
-                    url: 'fetch-posts.php', // PHP script to fetch posts data
-                    type: 'GET',
-                    success: function (data) {
-                        $('#posts-container').html(data); // Update posts container with fetched data
-                    }
-                });
-            }
-
-            // Refresh posts every 30 seconds
-            setInterval(fetchPosts, 30000); // 30 seconds interval
-        });
-
         // Function to close comments popup
         function closeCommentsPopup() {
             document.getElementById('commentsPopup').style.display = 'none';
         }
+        
         // Function to open comments popup
         function openCommentsPopup(postID) {
-            <?php if ($loggedin): ?>
-                document.getElementById('commentsPopup').style.display = 'block';
-                fetchComments(postID);
-                document.getElementById('postID').value = postID; // Set the postID in the hidden field
-            <?php endif; ?>
+            document.getElementById('commentsPopup').style.display = 'block';
+            fetchComments(postID);
+            document.getElementById('postID').value = postID; // Set the postID in the hidden field
         }
 
         // Function to fetch comments for a post
@@ -168,7 +151,7 @@
                         fetchComments(postID); // Refresh comments after adding
                         $('#commentText').val(''); // Clear comment text area
                     } else {
-                        alert('Error adding comment blank space.');
+                        alert('Error adding comment.');
                     }
                 },
                 error: function () {
@@ -177,10 +160,7 @@
             });
             return false; // Prevent form submission
         }
-
-
     </script>
 </body>
 
 </html>
-
