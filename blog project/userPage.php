@@ -11,6 +11,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
+$profilePicture = $_SESSION['profilePicture']; // Retrieve profile picture path
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +32,7 @@ $password = $_SESSION['password'];
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.php">Search</a></li>
-                <li class="user-icon-container"><a href="userPage.php"><span class="user-icon" style="color: white;">&#x1F47B;</span> <?php echo $username; ?></a></li>
+                <li class="user-icon-container"><a href="userPage.php"><img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">&#x1F47B;</a> <?php echo $username; ?></li>
                 <li><a href="logout.php">Log Out</a></li> <!-- Updated logout link -->
             </ul>
         </nav>
