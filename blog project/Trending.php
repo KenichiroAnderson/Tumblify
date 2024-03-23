@@ -138,42 +138,33 @@
             });
         }
 
+
         // Function to add comment
         function addComment() {
             var postID = $('#postID').val(); // Get the postID from the hidden field
             var commentText = $('#commentText').val();
-            
-            // Check if commentText is empty
-            if (!commentText.trim()) {
-                alert('Please enter a comment.');
-                return false;
-            }
-
-            // AJAX request to add comment
             $.ajax({
                 url: 'add-comment.php',
                 type: 'POST',
                 data: {
-                    postID: postID,
+                    postID: postID, // Pass the postID to the server
                     commentText: commentText
                 },
                 success: function (response) {
                     if (response === 'success') {
-                        // Refresh comments after adding
-                        fetchComments(postID, function() {
-                            $('#commentText').val(''); // Clear comment text area
-                        });
+                        fetchComments(postID); // Refresh comments after adding
+                        $('#commentText').val(''); // Clear comment text area
                     } else {
-                        alert('Failed to add comment. Please try again.');
+                        alert('Error adding comment.');
                     }
                 },
                 error: function () {
-                    alert('Error adding comment. Please try again later.');
+                    alert('Error adding comment.');
                 }
             });
-
             return false; // Prevent form submission
         }
+
     </script>
 </body>
 
