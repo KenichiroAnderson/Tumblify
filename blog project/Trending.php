@@ -142,11 +142,19 @@
         function addComment() {
             var postID = $('#postID').val(); // Get the postID from the hidden field
             var commentText = $('#commentText').val();
+            
+            // Check if commentText is empty
+            if (!commentText.trim()) {
+                alert('Please enter a comment.');
+                return false;
+            }
+
+            // AJAX request to add comment
             $.ajax({
                 url: 'add-comment.php',
                 type: 'POST',
                 data: {
-                    postID: postID, // Pass the postID to the server
+                    postID: postID,
                     commentText: commentText
                 },
                 success: function (response) {
@@ -156,13 +164,14 @@
                             $('#commentText').val(''); // Clear comment text area
                         });
                     } else {
-                        alert('Error adding comment.');
+                        alert('Failed to add comment. Please try again.');
                     }
                 },
                 error: function () {
-                    alert('Error adding comment.');
+                    alert('Error adding comment. Please try again later.');
                 }
             });
+
             return false; // Prevent form submission
         }
     </script>
