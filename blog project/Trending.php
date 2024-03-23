@@ -144,7 +144,7 @@
             var postID = $('#postID').val(); // Get the postID from the hidden field
             var commentText = $('#commentText').val();
             $.ajax({
-                url: 'add-comment.php',
+                url: 'add-comment.php', // Use the correct path to your add-comment.php script
                 type: 'POST',
                 data: {
                     postID: postID, // Pass the postID to the server
@@ -164,6 +164,7 @@
             });
             return false; // Prevent form submission
         }
+
 
     </script>
 </body>
