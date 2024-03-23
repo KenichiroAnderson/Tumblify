@@ -11,7 +11,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-$profilePicture = $_SESSION['ProfilePicture']; // Retrieve profile picture path
+$profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Construct the profile picture path
 ?>
 
 <!DOCTYPE html>
