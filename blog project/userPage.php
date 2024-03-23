@@ -11,7 +11,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
 $password = $_SESSION['password'];
-$profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Construct the profile picture path
+$profilePicture = $_SESSION['ProfilePicture']; // Retrieve profile picture path
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +31,12 @@ $profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Construct the pr
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.php">Search</a></li>
-                <li class="user-icon-container"><a href="userPage.php"><?php echo $username; ?><br><img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">&#x1F47B;</a></li>
+                <li class="user-icon-container">
+                    <a href="userPage.php">
+                        <?php echo $username; ?><br>
+                        <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">
+                    </a>
+                </li>
                 <li><a href="logout.php">Log Out</a></li> <!-- Updated logout link -->
             </ul>
         </nav>
@@ -68,7 +73,7 @@ $profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Construct the pr
         </div>
 
         <div class="profile-picture-container">
-            <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">
+            <img src="<?php echo $profilePicture; ?>" alt="Profile Picture">
         </div>
     </div>
 
