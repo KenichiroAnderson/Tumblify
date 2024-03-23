@@ -1,18 +1,49 @@
 <?php
-session_start(); // Start session
+    session_start(); // Start session
 
-// Check if user is not logged in, redirect to login page
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    // Check if user is not logged in, redirect to login page
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit;
+    }
 
-// Retrieve user information from session
-$username = $_SESSION['username'];
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-$profilePicture = $_SESSION['profilePicture']; // Retrieve profile picture path
+    // Retrieve user information from session
+    $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    $password = $_SESSION['password'];
 
+    // Database connection
+    $servername = "localhost";
+    $username = "60531845";
+    $password = "60531845";
+    $dbname = "db_60531845";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch user information including ProfilePicture
+    $userID = $_SESSION['userID']; // Assuming UserID is stored in the session
+    $sql = "SELECT Username, Email, Password, ProfilePicture FROM Users WHERE UserID = $userID";
+    $result = $conn->query($sql);
+
+    // Check if user information is fetched successfully
+    if ($result->num_rows > 0) {
+        // Fetch user data
+        $row = $result->fetch_assoc();
+        $username = $row["Username"];
+        $email = $row["Email"];
+        $password = $row["Password"];
+        $profilePicture = $row["ProfilePicture"]; // Fetch profile picture
+    } else {
+        echo "User not found";
+    }
+
+    $conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +81,9 @@ $profilePicture = $_SESSION['profilePicture']; // Retrieve profile picture path
 
         <div class="leftbox">
             <h2>My Profile</h2>
+            <div>
+                <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">
+            </div>
             <form action="#" method="post">
                 <div>
                     <label for="username">Username:</label><br>
