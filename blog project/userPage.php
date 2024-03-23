@@ -68,7 +68,7 @@ $profilePicture = $_SESSION['ProfilePicture']; // Retrieve profile picture path
         </div>
 
         <div class="profile-picture-container">
-            <img src="<?php echo "<figure><img src='" . $row["ProfilePicture"] . "' alt='Post Image'></figure>"?>
+            <img src="<?php echo $profilePicture; ?>" alt="Profile Picture" class="profile-picture">
         </div>
     </div>
 
