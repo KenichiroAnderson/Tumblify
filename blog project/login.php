@@ -38,9 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $row['Email'];
 
-            // Redirect to user page
-            header("Location: userPage.php");
-            exit();
+            // Check if the user is an admin
+            if ($row['isAdmin'] == 1) {
+                // Redirect admin to the admin page
+                header("Location: adminPage.php");
+                exit();
+            } else {
+                // Redirect regular user to the user page
+                header("Location: userPage.php");
+                exit();
+            }
         } else {
             // Password is incorrect, redirect back to login page with error message
             header("Location: login.php?error=1");
@@ -56,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
