@@ -1,48 +1,51 @@
 <?php
-    session_start(); // Start session
+session_start(); // Start session
 
-    // Check if user is not logged in, redirect to login page
-    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header("Location: login.php");
-        exit;
-    }
+// Check if user is not logged in, redirect to login page
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: login.php");
+    exit;
+}
 
-    // Retrieve user information from session
-    $username = $_SESSION['username'];
-    $email = $_SESSION['email'];
-    $password = $_SESSION['password'];
+// Retrieve user information from session
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
 
-    // Database connection
-        $servername = "localhost";
-        $username = "60531845";
-        $password = "60531845";
-        $dbname = "db_60531845";
+// Database connection
+$servername = "localhost";
+$db_username = "60531845";
+$db_password = "60531845";
+$db_name = "db_60531845";
 
-    // Create connection
-    $conn = new mysqli($servername, $db_username, $db_password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $db_name);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Retrieve profile picture path from the database
-    $profilePicture = '';
+// Retrieve profile picture path from the database
+$profilePicture = '';
 
-    $sql = "SELECT ProfilePicture FROM Users WHERE Username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$sql = "SELECT ProfilePicture FROM Users WHERE Username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        // User found in database, fetch profile picture path
-        $row = $result->fetch_assoc();
-        $profilePicture = "images/ProfilePic/" . $row['ProfilePicture'];
-    } else {
-        // User not found or profile picture path not available, use default image path
-        $profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Default image path
-    }
+if ($result->num_rows > 0) {
+    // User found in database, fetch profile picture path
+    $row = $result->fetch_assoc();
+    $profilePicture = $row['ProfilePicture'];
+} else {
+    // User not found or profile picture path not available, use default image path
+    $profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Default image path
+}
+
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
