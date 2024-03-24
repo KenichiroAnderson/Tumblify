@@ -1,18 +1,43 @@
 <?php
-session_start(); // Start session
+    session_start(); // Start session
 
-// Check if user is not logged in, redirect to login page
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    // Check if user is not logged in, redirect to login page
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit;
+    }
 
-// Retrieve user information from session
-$username = $_SESSION['username'];
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-$profilePicture = isset($_SESSION['ProfilePicture']) ? $_SESSION['ProfilePicture'] : "images/ProfilePic/Danny.jpg"; // Force an image from the folder
+    // Retrieve user information from session
+    $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
+    $password = $_SESSION['password'];
 
+    // Database connection
+    $servername = "localhost";
+    $username = "60531845";
+    $password = "60531845";
+    $dbname = "db_60531845";
+
+    // Create connection
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Retrieve profile picture path from the database
+    $sql = "SELECT ProfilePicture FROM Users WHERE Username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Fetch the profile picture path
+        $row = $result->fetch_assoc();
+        $profilePicture = $row['ProfilePicture'];
+    } else {
+        // If no profile picture path is found, use a default path
+        $profilePicture = "default_profile_picture.jpg"; // Provide a default path or use a placeholder image
+    }
 ?>
 
 <!DOCTYPE html>
