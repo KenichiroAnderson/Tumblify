@@ -42,7 +42,9 @@ if ($result->num_rows > 0) {
 } else {
     // User not found or profile picture path not available, use default image path
     //$profilePicture = "images/profile_pictures/" . $username . ".jpg"; // Default image path
-    $profilePicture = "images/profile_pictures/Danny.jpg"; // Default image path
+    //$profilePicture = "images/profile_pictures/Danny.jpg"; // Default image path
+    $profilePicture = "images/profile_pictures/Danny.jpg";
+
 }
 
 $stmt->close();
