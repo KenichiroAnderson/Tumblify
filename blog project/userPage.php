@@ -41,7 +41,7 @@ if ($result->num_rows > 0) {
     $profilePicture = $row['ProfilePicture'];
 } else {
     // User not found or profile picture path not available, use default image path
-    $profilePicture = "images/ProfilePic/" . $username . ".jpg"; // Default image path
+    $profilePicture = "images/profile_pictures/" . $username . ".jpg"; // Default image path
 }
 
 $stmt->close();
