@@ -38,7 +38,7 @@
     if ($result->num_rows > 0) {
         // User found in database, fetch profile picture path
         $row = $result->fetch_assoc();
-        $profilePicture = "images/profile_pictures/" . $row['ProfilePicture'];
+        $profilePicture = "images/" . $row['ProfilePicture'];
     } else {
         // User not found or profile picture path not available, use default image path
         //$profilePicture = "images/profile_pictures/" . $username . ".jpg"; // Default image path
