@@ -41,8 +41,8 @@
         $profilePicture = "images/" . $row['ProfilePicture'];
     } else {
         // User not found or profile picture path not available, use default image path
-        //$profilePicture = "images/profile_pictures/" . $username . ".jpg"; // Default image path
-        $profilePicture = "images/profile_pictures/Danny.jpg";
+        $profilePicture = "images/profile_pictures/" . $username . ".jpg"; // Default image path
+        //$profilePicture = "images/profile_pictures/Danny.jpg";
     }
 ?>
 
