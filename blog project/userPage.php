@@ -14,8 +14,8 @@
 
     // Database connection
     $servername = "localhost";
-    $username = "60531845";
-    $password = "60531845";
+    $db_username = "60531845";
+    $db_password = "60531845";
     $dbname = "db_60531845";
 
     // Create connection
