@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start session
+session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -29,10 +29,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <?php
                     session_start();
                     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-                        // If user is logged in, display their username next to a white emoji
+                        // If user is logged in
                         echo "<li class='user-icon-container'><a href='userPage.php'><span class='user-icon' style='color: white;'>&#x1F47B;</span> " . $_SESSION['username'] . "</a></li>";
                     } else {
-                        // If user is not logged in, display the login link
+                        // If user is not logged in
                         echo "<li><a href='login.php'>Log In</a></li>";
                     }
                 ?>

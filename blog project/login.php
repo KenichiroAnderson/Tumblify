@@ -14,10 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve username from POST request
-    $username = $conn->real_escape_string($_POST['username']); // Sanitize input
+    $username = $conn->real_escape_string($_POST['username']);
 
-    // Prepare SQL statement using prepared statement
     $sql = "SELECT * FROM Users WHERE Username=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
@@ -33,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify password
         $password = $_POST['password'];
         if (password_verify($password, $hashedPassword)) {
-            // Password is correct, set session variables
+            // Password is correct
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $row['Email'];
@@ -42,12 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: userPage.php");
             exit();
         } else {
-            // Password is incorrect, redirect back to login page with error message
+            // Password is incorrect
             header("Location: login.php?error=1");
             exit();
         }
     } else {
-        // User not found, redirect back to login page with error message
+        // User not found
         header("Location: login.php?error=1");
         exit();
     }

@@ -8,7 +8,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     exit();
 }
 
-// If logged in as admin, display admin-specific content below
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +16,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Account</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Adjust the path to your CSS file -->
+    <link rel="stylesheet" href="CSS/Style.css">
 </head>
 <body>
     <header>
@@ -34,7 +33,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     <main>
         <section>
             <h2>Admin Dashboard</h2>
-            <!-- Admin-specific content goes here -->
             <p>This is the admin dashboard. You can manage users, view statistics, etc. </p>
         </section>
     </main>

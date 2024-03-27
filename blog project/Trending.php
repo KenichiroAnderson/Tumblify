@@ -18,10 +18,10 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-                    // If user is logged in, display their username next to a white emoji
+                    // If user is logged in
                     echo "<li class='user-icon-container'><a href='userPage.php'><span class='user-icon' style='color: white;'>&#x1F47B;</span> " . $_SESSION['username'] . "</a></li>";
                 } else {
-                    // If user is not logged in, display the login link
+                    // If user is not logged in
                     echo "<li><a href='login.php'>Log In</a></li>";
                 }
                 ?>
@@ -48,7 +48,7 @@
         // Check if the user is logged in
         $loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 
-        // SQL query to fetch posts data with author information
+        // SQL query to fetch posts 
         $sql = "SELECT Posts.*, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID = Users.UserID";
         $result = $conn->query($sql);
 
@@ -61,11 +61,11 @@
                 echo "<h1>";
                 echo "<div><a rel='author'>" . $row["Username"] . "</a>";
 
-                // Check if user is logged in to enable certain actions
+                // Check if user is logged in
                 if ($loggedin) {
                     echo "<button class='follow'>Follow</button>";
                 } else {
-                    // If user is not logged in, disable comment button and follow button
+                    // If user is not logged in
                     echo "<button class='follow' disabled>Follow</button>";
                 }
 
@@ -94,7 +94,7 @@
         <div id="commentsPopup" class="comments-popup" style="display: none;">
             <div class="comments-popup-content">
                 <span class="close" onclick="closeCommentsPopup()">&times;</span>
-                <!-- Close button (X) -->
+                <!-- Close button X -->
                 <h2>Comments</h2>
                 <div id="commentsContainer"></div>
                 <form id="commentForm" class="comment-form" <?php if (!$loggedin) echo "style='display: none;'"; ?> onsubmit="return addComment()">
@@ -117,10 +117,10 @@
         function openCommentsPopup(postID) {
             document.getElementById('commentsPopup').style.display = 'block';
             fetchComments(postID);
-            document.getElementById('postID').value = postID; // Set the postID in the hidden field
+            document.getElementById('postID').value = postID;
         }
 
-                // Function to fetch comments for a post
+        // Function to fetch comments for a post
         function fetchComments(postID, callback) {
             $.ajax({
                 url: 'fetch-comments.php',
@@ -144,10 +144,10 @@
             var postID = $('#postID').val(); // Get the postID from the hidden field
             var commentText = $('#commentText').val();
             $.ajax({
-                url: 'add-comment.php', // Use the correct path to your add-comment.php script
+                url: 'add-comment.php',
                 type: 'POST',
                 data: {
-                    postID: postID, // Pass the postID to the server
+                    postID: postID,
                     commentText: commentText
                 },
                 success: function (response) {
