@@ -27,7 +27,7 @@ if(isset($_GET['postID'])) {
         // Output data of each comment
         while ($row = $result->fetch_assoc()) {
             echo "<div>";
-            echo "<p><strong>User:</strong> " . $row['UserID'] . "</p>";
+            echo "<p><strong>Username:</strong> " . $row['Username'] . "</p>";
             echo "<p><strong>Comment:</strong> " . $row['CommentText'] . "</p>";
             echo "<p><strong>Date:</strong> " . $row['CommentDate'] . "</p>";
             echo "</div>";
