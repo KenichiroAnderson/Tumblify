@@ -15,11 +15,12 @@ if(isset($_GET['postID'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Sanitize postID
     $postID = $conn->real_escape_string($_GET['postID']);
 
-    // SQL query to fetch comments for the specified postID
-    $sql = "SELECT * FROM Comments WHERE PostID = '$postID'";
+    $sql = "SELECT c.CommentID, c.CommentText, c.CommentDate, u.Username 
+            FROM Comments c 
+            INNER JOIN Users u ON c.UserID = u.UserID 
+            WHERE c.PostID = '$postID'";
     $result = $conn->query($sql);
 
     // Check if there are any comments
@@ -38,7 +39,8 @@ if(isset($_GET['postID'])) {
 
     $conn->close();
 } else {
-    // If postID is not provided in the request, return an error message
+    // If postID is not provided:
     echo "Error: postID parameter is missing.";
 }
 ?>
+
