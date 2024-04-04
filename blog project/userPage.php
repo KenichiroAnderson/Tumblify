@@ -82,6 +82,9 @@
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Change Password</a></li>
             </ul>
+            <?php if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true): ?>
+                <button onclick="redirectToAdminAccount()">Go to Admin Dashboard</button>
+            <?php endif; ?>
         </div>
 
         <div class="leftbox">
@@ -110,6 +113,11 @@
     </div>
 
     <script>
+
+        function redirectToAdminAccount() {
+            window.location.href = "adminAccount.php";
+        }
+
         // Refresh the page every 30 seconds
         setInterval(function () {
             location.reload();
