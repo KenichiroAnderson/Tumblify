@@ -35,10 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $row['Email'];
-
-            // Redirect to user page
-            header("Location: userPage.php");
-            exit();
+            
+            // Check if user is admin
+            if ($row['isAdmin'] == 1) {
+                $_SESSION['isAdmin'] = true;
+                // Redirect admin to adminAccount.php
+                header("Location: adminAccount.php");
+                exit();
+            } else {
+                $_SESSION['isAdmin'] = false;
+                // Redirect non-admin to userPage.php
+                header("Location: userPage.php");
+                exit();
+            }
         } else {
             // Password is incorrect
             header("Location: login.php?error=1");
@@ -54,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
