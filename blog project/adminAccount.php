@@ -7,15 +7,74 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     header("Location: login.php");
     exit();
 }
-?>
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $servername = "localhost";
+    $usernameDB = "60531845"; 
+    $passwordDB = "60531845";
+    $dbname = "db_60531845";
+    $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    if(isset($_POST['action']) && !empty($_POST['action'])) {
+        $action = $_POST['action'];
+        
+        switch($action) {
+            case 'editPost':
+                // editing posts
+                $postId = $_POST['postId'];
+                $newTitle = $_POST['newTitle'];
+                $newContent = $_POST['newContent'];
+                $query = "UPDATE Posts SET ColumnTitle = '$newTitle', ColumnText = '$newContent' WHERE ColumnPostID = $postId";
+                $result = mysqli_query($conn, $query);
+                
+                if($result) {
+                    echo "Post edited successfully!";
+                } else {
+                    echo "Error editing post: " . mysqli_error($conn);
+                }
+                break;
+            case 'deletePost':
+                //delete post query
+                $postId = $_POST['postId'];
+                $query = "DELETE FROM Posts WHERE ColumnPostID = $postId";
+                $result = mysqli_query($conn, $query);
+                
+                if($result) {
+                    echo "Post deleted successfully!";
+                } else {
+                    echo "Error deleting post: " . mysqli_error($conn);
+                }
+                break;
+            case 'deleteUser':
+                //deleting user query
+                $userId = $_POST['userId'];
+                $query = "DELETE FROM Users WHERE ColumnUserID = $userId";
+                $result = mysqli_query($conn, $query);
+                
+                if($result) {
+                    echo "User deleted successfully!";
+                } else {
+                    echo "Error deleting user: " . mysqli_error($conn);
+                }
+                break;
+            default:
+                // Invalid action
+                break;
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Account</title>
+    <title>Moderation</title>
     <link rel="stylesheet" href="CSS/Style.css">
 </head>
 <body>
@@ -32,8 +91,24 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
 
     <main>
         <section>
-            <h2>Admin Dashboard</h2>
-            <p>This is the admin dashboard. You can manage users, view statistics, etc. </p>
+            <h2>Moderation</h2>
+            <form method="post">
+                <input type="hidden" name="action" value="editPost">
+                <input type="text" name="postId" placeholder="Post ID">
+                <input type="text" name="newTitle" placeholder="New Title">
+                <textarea name="newContent" placeholder="New Content"></textarea>
+                <button type="submit">Edit Post</button>
+            </form>
+            <form method="post">
+                <input type="hidden" name="action" value="deletePost">
+                <input type="text" name="postId" placeholder="Post ID">
+                <button type="submit">Delete Post</button>
+            </form>
+            <form method="post">
+                <input type="hidden" name="action" value="deleteUser">
+                <input type="text" name="userId" placeholder="User ID">
+                <button type="submit">Delete User</button>
+            </form>
         </section>
     </main>
 
@@ -42,4 +117,3 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     </footer>
 </body>
 </html>
-
