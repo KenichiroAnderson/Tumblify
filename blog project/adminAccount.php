@@ -67,6 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+    // Fetch all table names from the database
+    $tablesQuery = "SHOW TABLES";
+    $tablesResult = mysqli_query($conn, $tablesQuery);
+    $tables = mysqli_fetch_all($tablesResult);
+
 ?>
 
 <!DOCTYPE html>
@@ -109,6 +115,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="userId" placeholder="User ID">
                 <button type="submit">Delete User</button>
             </form>
+        </section>
+
+        <section>
+            <h2>Database Tables</h2>
+            <ul>
+                <?php
+                // display all tables 
+                foreach ($tables as $table) {
+                    echo "<li>$table[0]</li>";
+                }
+                ?>
+            </ul>
         </section>
     </main>
 
