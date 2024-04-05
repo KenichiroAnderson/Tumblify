@@ -68,28 +68,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-    // Fetch all table names from the database
-    $tablesQuery = $tablesQuery = "SHOW TABLES LIKE 'Users' OR TABLES LIKE 'Posts' OR TABLES LIKE 'Comments'";
+    
+    $tablesQuery = "SHOW TABLES LIKE 'Users' OR TABLES LIKE 'Posts' OR TABLES LIKE 'Comments'";
     $tablesResult = mysqli_query($conn, $tablesQuery);
 
     if (!$tablesResult) {
         echo "Error fetching tables: " . mysqli_error($conn);
-
     } else {
         $tables = mysqli_fetch_all($tablesResult);
         if (empty($tables)) {
             echo "No tables found in the database.";
-
         } else {
             echo "<ul>";
             foreach ($tables as $table) {
                 echo "<li>$table[0]</li>";
-
             }
             echo "</ul>";
-
         }
     }
+
 
 
 ?>
