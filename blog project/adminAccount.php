@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
     // Fetch all table names from the database
-    $tablesQuery = "SHOW TABLES";
+    $tablesQuery = $tablesQuery = "SHOW TABLES LIKE 'Users' OR TABLES LIKE 'Posts' OR TABLES LIKE 'Comments'";
     $tablesResult = mysqli_query($conn, $tablesQuery);
 
     if (!$tablesResult) {
