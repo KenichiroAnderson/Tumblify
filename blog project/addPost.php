@@ -8,8 +8,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Include database connection
-include_once "db_connection.php";
+// Database connection parameters
+$servername = "localhost";
+$db_username = "60531845";
+$db_password = "60531845";
+$dbname = "db_60531845";
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
