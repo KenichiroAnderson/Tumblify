@@ -89,6 +89,7 @@
 
         <div class="leftbox">
             <h2>My Profile</h2>
+            <a href="addPost.php"><button>Add New Post</button></a>
             <form action="#" method="post">
                 <div>
                     <label for="username">Username:</label><br>
