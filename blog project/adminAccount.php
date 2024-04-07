@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
     <footer>
-        <p>&copy; 2024 Your Website</p>
+        <p>&copy; 2024 Tumblify</p>
     </footer>
 </body>
 </html>
