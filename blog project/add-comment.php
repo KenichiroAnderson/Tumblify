@@ -3,44 +3,59 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    echo "error"; // User is not logged in
+    echo "User is not logged in";
     exit();
 }
 
 // Check if all required data is provided
 if (!isset($_POST['postID']) || !isset($_POST['commentText'])) {
-    echo "error"; // Data is not provided
+    echo "Missing data";
     exit();
 }
 
-// Sanitize inputs
+// Validate postID
 $postID = $_POST['postID'];
-$commentText = htmlspecialchars($_POST['commentText']); // Sanitize comment text
+if (!is_numeric($postID)) {
+    echo "Invalid post ID";
+    exit();
+}
 
-// Database connection
-    $servername = "localhost";
-    $username = "60531845";
-    $password = "60531845";
-    $dbname = "db_60531845";
+// Sanitize and validate commentText
+$commentText = trim($_POST['commentText']);
+if (empty($commentText)) {
+    echo "Comment text is empty";
+    exit();
+}
+$commentText = htmlspecialchars($commentText); // Sanitize comment text
+
+// Database connection parameters
+$servername = "localhost";
+$username = "60531845";
+$password = "60531845";
+$dbname = "db_60531845";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    echo "error"; // Connection failed
+    echo "Connection failed: " . $conn->connect_error;
     exit();
 }
 
-// Insert comment into the database
-$sql = "INSERT INTO Comments (PostID, UserID, CommentText) VALUES ('$postID', '{$_SESSION['userID']}', '$commentText')";
+// Prepare and bind SQL statement with prepared statement
+$sql = "INSERT INTO Comments (PostID, UserID, CommentText) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("iis", $postID, $_SESSION['userID'], $commentText);
 
-if ($conn->query($sql) === TRUE) {
+// Execute SQL statement
+if ($stmt->execute()) {
     echo "success"; // Comment added successfully
 } else {
-    echo "error"; // Error adding comment
+    echo "Error adding comment: " . $conn->error; // Error adding comment
 }
 
-// Close connection
+// Close statement and connection
+$stmt->close();
 $conn->close();
 ?>
