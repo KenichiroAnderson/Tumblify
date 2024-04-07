@@ -98,7 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.php">Search</a></li>
                 <?php
-                session_start();
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     // If user is logged in
                     echo "<li class='user-icon-container'><a href='userPage.php'><span class='user-icon' style='color: white;'>&#x1F47B;</span> " . $_SESSION['username'] . "</a></li>";
