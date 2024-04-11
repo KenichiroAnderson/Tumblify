@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $row['Email'];
+            $_SESSION['userID'] = $row['UserID'];
             
             // Check if user is admin
             if ($row['isAdmin'] == 1) {
