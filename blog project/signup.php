@@ -58,21 +58,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <header>
+        <div>
+        <img src="images/tumblifyIcon.png" alt="Icon" class= "logo">
         <h1>Tumblify</h1>
+        </div>
         <nav>
             <ul>
                 <!-- always update these when you make a new header, do for all pages-->
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.php">Search</a></li>
                 <li><a href="login.php">Log In</a></li>
-                <li><a href="signup.php">Sign Up</a></li>
+                <li class="currentPage"><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <div class="container">
-        <h2>Ticket Tech Registration</h2>
+        <h2>Registration</h2>
         <!-- link to login if you have an account-->
         <p>Already have an account? <a href="login.php">Log in here</a>.</p>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">        
