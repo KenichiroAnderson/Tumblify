@@ -65,7 +65,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         $searchQuery = $_GET['search'];
 
         // Perform the search query in the database
-        $sql = "SELECT Posts.*, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID = Users.UserID WHERE Posts.Title LIKE '%$searchQuery%' OR Posts.Text LIKE '%$searchQuery%'";
+        $sql = "SELECT Posts.*, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID = Users.UserID WHERE Posts.Title LIKE '%$searchQuery%' OR Posts.Text LIKE '%$searchQuery%' OR Users.Username LIKE '%$searchQuery%'";
         $result = $conn->query($sql);
 
         // Check if there are any posts
