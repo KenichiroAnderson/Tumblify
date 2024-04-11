@@ -42,8 +42,84 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </header>
 
     <main>
-        <!-- simple thwrow message-->
-        <p>Sorry, nothing can be found.</p>
+        <?php
+        // Database connection
+        $servername = "localhost";
+        $username = "60531845";
+        $password = "60531845";
+        $dbname = "db_60531845";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Check if the user is logged in
+        $loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+
+        // Get the search query from the URL parameter
+        $searchQuery = $_GET['search'];
+
+        // Perform the search query in the database
+        $sql = "SELECT Posts.*, Users.Username FROM Posts INNER JOIN Users ON Posts.UserID = Users.UserID WHERE Posts.Title LIKE '%$searchQuery%' OR Posts.Text LIKE '%$searchQuery%'";
+        $result = $conn->query($sql);
+
+        // Check if there are any posts
+        if ($result->num_rows === 0) {
+            echo "<p>No posts found.</p>";
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                // Output post content
+                echo "<article>";
+                echo "<h1>";
+                echo "<div><a rel='author'>" . $row["Username"] . "</a>";
+
+                // Check if user is logged in
+                if ($loggedin) {
+                    echo "<button class='follow'>Follow</button>";
+                } else {
+                    // If user is not logged in
+                    echo "<button class='follow' disabled>Follow</button>";
+                }
+
+                echo "</div>";
+                echo "</h1>";
+                echo "<div>";
+                echo "<figure><img src='" . $row["ImageURL"] . "' alt='Post Image'></figure>";
+                echo "<p>" . $row["Text"] . "</p>";
+                echo "</div>";
+                if ($loggedin) {
+                    echo "<button class='comment-button' onclick='openCommentsPopup(" . $row["PostID"] . ")'>View/Add Comments</button>";
+                } else {
+
+                    echo "<button class='comment-button' disabled>View/Add Comments</button>";
+                }
+                echo "<div id='commentsContainer_" . $row["PostID"] . "' class='comments-container'></div>"; // Container for comments
+                echo "</article>";
+            }
+        }
+
+        $conn->close();
+        ?>
+
+        <div id="commentsPopup" class="comments-popup" style="display: none;">
+            <div class="comments-popup-content">
+                <span class="close" onclick="closeCommentsPopup()">&times;</span>
+                <!-- Close button X -->
+                <h2>Comments</h2>
+                <div id="commentsContainer"></div>
+                <form id="commentForm" class="comment-form" <?php if (!$loggedin) echo "style='display: none;'"; ?> onsubmit="return addComment()">
+                    <input type="hidden" id="postID" name="postID" value="">
+                    <textarea id="commentText" name="commentText" placeholder="Write a comment..." required></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+                <?php if (!$loggedin) echo "<p>Please log in to add comments.</p>"; ?>
+            </div>
+        </div>
     </main>
 </body>
     <script>

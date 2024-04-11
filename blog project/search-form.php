@@ -44,7 +44,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <main>
         <form action="search-results.html" method="get">
             <label for="searchQuery">Search:</label>
-            <input type="text" id="searchQuery" name="q" required>
+            <input type="text" id="searchQuery" name="search" required>
             <button type="submit">Search</button>
             <button type="button" onclick="goBackToHome()">X</button>
         </form>
