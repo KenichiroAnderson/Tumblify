@@ -122,6 +122,67 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
     </main>
 </body>
+<script>
+        // Function to close comments popup
+        function closeCommentsPopup() {
+            document.getElementById('commentsPopup').style.display = 'none';
+        }
+        
+        // Function to open comments popup
+        function openCommentsPopup(postID) {
+            document.getElementById('commentsPopup').style.display = 'block';
+            fetchComments(postID);
+            document.getElementById('postID').value = postID;
+        }
+
+        // Function to fetch comments for a post
+        function fetchComments(postID, callback) {
+            $.ajax({
+                url: 'fetch-comments.php',
+                type: 'GET',
+                data: { postID: postID },
+                success: function (data) {
+                    $('#commentsContainer').html(data);
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                },
+                error: function () {
+                    alert('Error fetching comments.');
+                }
+            });
+        }
+
+
+        // Function to add comment
+        function addComment() {
+            var postID = $('#postID').val(); // Get the postID from the hidden field
+            var commentText = $('#commentText').val();
+            $.ajax({
+                url: 'add-comment.php',
+                type: 'POST',
+                data: {
+                    postID: postID,
+                    commentText: commentText
+                },
+                success: function (response) {
+                    if (response === 'success') {
+                        fetchComments(postID); // Refresh comments after adding
+                        $('#commentText').val(''); // Clear comment text area
+                    } else {
+                        alert('Error adding comment.');
+                    }
+                },
+                error: function () {
+                    alert('Error adding comment.');
+                }
+            });
+            return false; // Prevent form submission
+        }
+
+
+    </script>
+    
     <script>
         // Refresh the page every 30 seconds
         setInterval(function () {
