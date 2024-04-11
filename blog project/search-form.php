@@ -64,5 +64,4 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             location.reload();
         }, 30000);
     </script>
-
 </html>
