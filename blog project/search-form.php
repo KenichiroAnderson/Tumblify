@@ -45,13 +45,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <form action="search-results.php" method="get">
             <label for="searchQuery">Search:</label>
             <input type="text" id="searchQuery" name="search" required>
-            <button type="submit">Search</button>
+            <button type="submit" onClick="goToResults()">Search</button>
             <button type="button" onclick="goBackToHome()">X</button>
         </form>
     </main>
     <script>
         function goBackToHome() {
             window.location.href = "Trending.php";
+        }
+        function goToResults() {
+            window.location.href = "search-results.php";
         }
     </script>
 </body>
