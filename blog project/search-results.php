@@ -121,8 +121,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
         </div>
     </main>
-</body>
-<script>
+    <script>
         // Function to close comments popup
         function closeCommentsPopup() {
             document.getElementById('commentsPopup').style.display = 'none';
@@ -180,14 +179,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             return false; // Prevent form submission
         }
 
-
-    </script>
-    
-    <script>
         // Refresh the page every 30 seconds
         setInterval(function () {
             location.reload();
         }, 30000);
     </script>
+</body>
 
 </html>
