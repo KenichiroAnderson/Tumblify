@@ -80,9 +80,10 @@ button:hover {
 main {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     margin: 10px;
-    max-width: 300px;
+    max-width: 400px;
     background-color: #F2F2F2;
     color: #0f181f;
     padding: 20px;
