@@ -72,18 +72,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Login-Style.css">
+    <link rel="stylesheet" href="CSS/loading.css">
+    <script src="loading.js"></script>
     <title>Login</title>
 </head>
 
 <body>
+    <div class="loader"></div>
     <header>
+        <div>
+        <img src="images/tumblifyIcon.png" alt="Icon" class= "logo">
         <h1>Tumblify</h1>
+        </div>
         <nav>
             <!-- always update these when you make a new header, do for all pages-->
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
                 <li><a href="search-form.php">Search</a></li>
-                <li><a href="login.php">Log In</a></li>
+                <li class = "currentPage"><a href="login.php">Log In</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>

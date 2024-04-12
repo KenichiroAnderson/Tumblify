@@ -1,15 +1,35 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #2e4a65, #0f181f);
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #0f181f;
     color: #fff;
     padding: 10px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 10px 0;
+}
+
+.logo {
+    margin-right: 10px;
+    height: 50px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    margin: 0px 0px 5px 0;
 }
 
 nav ul {
@@ -33,10 +53,19 @@ nav a {
     font-size: 16px;
 }
 
+nav a:hover {
+    color: #9a6454;
+}
+
+.currentPage a {
+    text-decoration: underline;
+}
+
 main {
     max-width: 600px;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: #F2F2F2;
+    color: #0f181f;
     padding: 20px;
     border-radius: 5px;
 }
@@ -44,6 +73,19 @@ main {
 form {
     display: flex;
     flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+  
+.form-group label {
+    margin-bottom: 5px;
+}
+  
+.form-group input {
+    margin-bottom: 5px;
 }
 
 label {
@@ -60,11 +102,17 @@ input {
 
 button {
     padding: 10px;
-    background-color: #333;
+    margin-top: 30px;
+    background-color: #0f181f;
     color: #fff;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #1E2F4D;
+    color: #fff;
 }
 
 .error-message {

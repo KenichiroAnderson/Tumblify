@@ -1,14 +1,35 @@
 body {
     font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #2e4a65, #0f181f);
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #0f181f;
     color: #fff;
     padding: 10px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 10px 0;
+}
+
+.logo {
+    margin-right: 10px;
+    height: 50px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    margin: 0px 0px 5px 0;
 }
 
 nav ul {
@@ -32,30 +53,51 @@ nav a {
     font-size: 16px;
 }
 
+nav a:hover {
+    color: #9a6454;
+}
+
+.currentPage a {
+    text-decoration: underline;
+}
+
 .container {
-    margin: 20px;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 10px auto;
 }
 
 .leftbox {
     float: left;
     width: 25%;
+    height: 50%;
     padding: 20px;
+    background-color: #F2F2F2;
+    color: #0f181f;  
+    border-radius: 5px;
+    max-width: 200px;
 }
 
 .rightbox {
     float: right;
-    width: 70%;
+    width: 60%;
+    margin: auto;
     padding: 20px;
+    background-color: #F2F2F2;
+    color: #0f181f;
+    border-radius: 5px;
+    max-width: 600px;
 }
 
 .input {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 10px;
 }
 
 .btn {
-    background-color: #333;
+    background-color: #0f181f;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -64,7 +106,8 @@ nav a {
 }
 
 .btn:hover {
-    background-color: #555;
+    background-color: #1E2F4D;
+    color: #fff;
 }
 
 .user-icon {

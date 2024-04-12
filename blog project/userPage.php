@@ -53,12 +53,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/userPage.css">
+    <link rel="stylesheet" href="CSS/loading.css">
+    <script src="loading.js"></script>
     <title>User Account - Blog Post</title>
 </head>
 
 <body>
+    <div class="loader"></div>
     <header>
+        <div>
+        <img src="images/tumblifyIcon.png" alt="Icon" class= "logo">
         <h1>Tumblify</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
@@ -87,7 +93,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="leftbox">
+        <div class="rightbox">
             <h2>My Profile</h2>
             <a href="addPost.php"><button>Add New Post</button></a>
             <form action="#" method="post">
