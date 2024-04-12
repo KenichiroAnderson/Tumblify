@@ -72,6 +72,7 @@ nav a:hover {
     background-color: #F2F2F2;
     color: #0f181f;  
     border-radius: 5px;
+    max-width: 100px;
 }
 
 .rightbox {
@@ -81,6 +82,7 @@ nav a:hover {
     background-color: #F2F2F2;
     color: #0f181f;
     border-radius: 5px;
+    max-width: 600px;
 }
 
 .input {
