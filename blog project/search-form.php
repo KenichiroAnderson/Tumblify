@@ -42,16 +42,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
     <!--function to send back to home page when X clicked on search-->
     <main>
-        <form action="search-results.html" method="get">
+        <form action="search-results.php" method="get">
             <label for="searchQuery">Search:</label>
-            <input type="text" id="searchQuery" name="q" required>
-            <button type="submit">Search</button>
+            <input type="text" id="searchQuery" name="search" required>
+            <button type="submit" onclick="goToResults()">Search</button>
             <button type="button" onclick="goBackToHome()">X</button>
         </form>
     </main>
     <script>
         function goBackToHome() {
             window.location.href = "Trending.php";
+        }
+        function goToResults() {
+            window.location.href = "search-results.php";
         }
     </script>
 </body>
@@ -61,5 +64,4 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             location.reload();
         }, 30000);
     </script>
-
 </html>
