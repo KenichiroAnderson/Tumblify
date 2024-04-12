@@ -82,7 +82,7 @@ main {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 10px;
+    margin: 10px auto;
     max-width: 400px;
     background-color: #F2F2F2;
     color: #0f181f;
