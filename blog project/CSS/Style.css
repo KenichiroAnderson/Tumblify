@@ -82,6 +82,7 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    text-align: center;
     margin: 10px;
     max-width: 400px;
     background-color: #F2F2F2;
