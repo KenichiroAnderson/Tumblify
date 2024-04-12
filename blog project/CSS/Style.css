@@ -1,15 +1,35 @@
 body {
     font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #2e4a65, #0f181f);
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
 header {
-    background-color: #333;
+    background-color: #0f181f;
     color: #fff;
     padding: 10px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 10px 0;
+}
+
+.logo {
+    margin-right: 10px;
+    height: 50px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    margin: 0px 0px 5px 0;
 }
 
 nav {
@@ -33,6 +53,14 @@ a {
     font-weight: bold;
 }
 
+nav a:hover {
+    color: #9a6454;
+}
+
+.currentPage a {
+    text-decoration: underline;
+}
+
 .search-bar {
     display: flex;
     align-items: center;
@@ -42,6 +70,11 @@ input {
     padding: 5px;
     border: none;
     border-radius: 3px;
+}
+
+button:hover {
+    background-color: #1E2F4D;
+    color: #fff;
 }
 
 main {
