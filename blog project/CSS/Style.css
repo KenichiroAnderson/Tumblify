@@ -81,7 +81,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 20px;
+    margin: 10px;
+    max-width: 300px;
     background-color: #F2F2F2;
     color: #0f181f;
     padding: 20px;

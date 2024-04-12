@@ -93,7 +93,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="leftbox">
+        <div class="rightbox">
             <h2>My Profile</h2>
             <a href="addPost.php"><button>Add New Post</button></a>
             <form action="#" method="post">

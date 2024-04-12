@@ -69,12 +69,16 @@ nav a:hover {
     float: left;
     width: 25%;
     padding: 20px;
+    background-color: #F2F2F2;
+    color: #0f181f;  
 }
 
 .rightbox {
     float: right;
     width: 70%;
     padding: 20px;
+    background-color: #F2F2F2;
+    color: #0f181f;
 }
 
 .input {
