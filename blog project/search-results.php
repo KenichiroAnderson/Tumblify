@@ -23,23 +23,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <body>
     <div class="loader"></div>
     <header>
+        <div>
+        <img src="images/tumblifyIcon.png" alt="Icon" class= "logo">
         <h1>Tumblify</h1>
+        </div>
         <nav>
             <ul>
-                <!-- always update these when you make a new header, do for all pages-->
-                <li><a href="Trending.php">Trending Blogs</a></li>
-                <li class = "currentPage"><a href="search-form.php">Search</a></li>
+                <li class = "currentPage"><a href="Trending.php">Trending Blogs</a></li>
+                <li><a href="search-form.php">Search</a></li>
                 <?php
-                    session_start();
-                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-                        // If user is logged in
-                        echo "<li class='user-icon-container'><a href='userPage.php'><span class='user-icon' style='color: white;'>&#x1F47B;</span> " . $_SESSION['username'] . "</a></li>";
-                    } else {
-                        // If user is not logged in
-                        echo "<li><a href='login.php'>Log In</a></li>";
-                    }
+                session_start();
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                    // If user is logged in
+                    echo "<li class='user-icon-container'><a href='userPage.php'><span class='user-icon' style='color: white;'>&#x1F47B;</span> " . $_SESSION['username'] . "</a></li>";
+                    echo "<li><a href='logout.php'>Log Out</a></li>";
+                } else {
+                    // If user is not logged in
+                    echo "<li><a href='login.php'>Log In</a></li>";
+                    echo "<li><a href='signup.php'>Sign Up</a></li>";
+                }
                 ?>
-                <li><a href="signup.php">Sign Up</a></li>
             </ul>
         </nav>
     </header>
