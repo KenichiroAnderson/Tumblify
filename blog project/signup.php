@@ -53,6 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Signup-Style.css">
+    <link rel="stylesheet" href="CSS/loading.css">
+    <script src="loading.js"></script>
     <title>Sign Up</title>
 </head>
 
@@ -74,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <main>
+    <div class="loader"></div>
         <div class="container">
         <h2>Registration</h2>
         <!-- link to login if you have an account-->
