@@ -78,7 +78,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         if ($result->num_rows === 0) {
             echo "<p>No posts found.</p>";
         } else {
-            echo "<h2>Search results:</h2>";
+            echo "<h2>Search results:</h2><br></br>";
             while ($row = $result->fetch_assoc()) {
                 // Output post content
                 echo "<article>";
