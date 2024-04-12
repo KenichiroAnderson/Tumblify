@@ -23,7 +23,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <body>
     <div class="loader"></div>
     <header>
+        <div>
+        <img src="images/tumblifyIcon.png" alt="Icon" class= "logo">
         <h1>Tumblify</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="Trending.php">Trending Blogs</a></li>
