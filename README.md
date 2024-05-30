@@ -3,6 +3,7 @@
 ## Project Overview
 
 **Project Name:** Tumblify
+
 **By:** 
 - Ken Anderson
 - Jackson Wilson
