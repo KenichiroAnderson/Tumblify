@@ -9,7 +9,7 @@
    - If you haven't already, download and install XAMPP from [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html).
    - Follow the installation instructions provided on the website for your operating system.
 
-3. **Locate the htdocs Folder**
+3. **Locate the `htdocs` Folder**
    - After installing XAMPP, navigate to the XAMPP installation directory.
    - Inside the XAMPP directory, you'll find a folder named `htdocs`. This folder is where you'll place your PHP files.
 
@@ -31,7 +31,11 @@
 
 7. **Access the App**
    - Open your web browser.
-   - In the address bar, type `http://localhost/` followed by the name of the folder where you placed your app files. For example, if your app files are in a folder named `myapp`, you would type `http://localhost/myapp/` in the address bar.
+   - In the address bar, type `http://localhost/` followed by the name of the folder where you placed your app files. 
+   - For example, if your app files are in a folder named `myapp`, you would type:
+     ```
+     http://localhost/myapp/
+     ```
    - Press Enter to load the app in your web browser.
 
 8. **Verify the App**
